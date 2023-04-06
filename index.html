@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/Official-GB-Lake-country-logo.png"
+    />
+    <link href="style.css" rel="stylesheet"  />
+    <!-- add cdn library -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script defer src="script.js"></script>
+    <title>GB Dashboard</title>
+  </head>
+  <body>
+    <div class="customer__header__image__container">  
+      <img class="logo-img customer__signup__form__toggle" src="./images/Official-GB-Lake-country-logo.png" alt="header" />
+    </div>
+    <!-- GB Student Dashboard -->
+    <div class="dashboard__add__new__student__container">
+      <div class="dashboard__header">
+        <div class="dashboard__header__title">
+          <h1>Gracie Barra Dashboard</h1>
+        </div>
+        <div class="dashboard__daily__quotes">
+        </div>
+      </div>
+      <div class="student__count__container">
+        <div class="header__image__container">  
+          <img class="logo-img hidden" src="./images/Official-GB-Lake-country-logo.png" alt="header" />
+        </div>
+        <div class="clock__container">
+          <div id="clock">
+            <p class="time">{{ time }}</p>
+            <p class="date">{{ date }}</p>
+        </div> 
+      </div>
+      <div class="toggle__container">
+        <div class="onoff-switch">
+          <p> Dark Mode</p>
+          <input
+            type="checkbox"
+            name="onoff-switch"
+            class="onoffswitch-checkbox dark-switch"
+            id="myonoffswitch"
+            type="checkbox"
+          />
+        </div>
+      </div>
+      </div>
+      <div class="after__school__container">
+        <div class="count__container">
+          <p>Current Student Count</p>
+        <hr/>
+          <p class="student__count">0</p>
+        </div>
+        <div class="count__container">
+          <p>After School Pickup Count</p>
+          <hr />
+          <p class="after__school">0</p>
+        </div>
+        <div class="count__container">
+          <p>Monday - Wednesday - Friday</p>
+          <hr />
+          <p class="option__a">0</p>
+        </div>
+        <div class="count__container">
+          <p>Tuesday - Thursday</p>
+          <hr />
+          <p class="option__b">0</p>
+        </div>
+        <div class="count__container">
+          <p>Saturday</p>
+          <hr />
+          <p class="option__saturday">0</p>
+        </div>
+        <div class="count__container">
+          <p>Adults Program</p>
+          <hr />
+          <p class="option__adults">0</p>
+        </div>
+      </div>
+      <div class="add__new__student__button__container hidden">
+          <button class="add__new__student__button">Add New Student</button>
+          <p class="success__message">New Student has been added!!!</p>
+      </div>
+      <div class="monthly__income__button__container">
+        <button class="monthly__income__button" type="button">Monthly Income</button>
+      </div>
+
+
+      <!--Parent Sign up form -->
+      <div class="section__container hidden">
+        <section class="section1">
+          <div clas="add__new__student__container">
+            <h1>Step 1: Parent's Info</h1>
+            <hr/>
+            <form class="form">
+              <div class="column1">
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="firstName"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      name="first_name"
+                      placeholder="Frist Name"
+                      class="first__name__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="lastName">Last Name</label>
+                    <input
+                      type="text"
+                      name="last_name"
+                      placeholder="Last Name"
+                      class="last__name__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="email">Email</label>
+                    <input type="text" name="email" placeholder="Email" class="email__input gb__input" />
+                  </div>
+                </div>
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="phone">Phone</label>
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="Phone Number"
+                      class="phone__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="address">Address</label>
+                    <input
+                      type="address"
+                      name="address"
+                      placeholder="Address"
+                      class="address__input gb__input"
+                      required
+                    />
+                  </div>
+                  <!-- <div class="form__input__container">
+                    <label class="form__label" for="waiver">Waiver Agreement</label>
+                    <select class="gb__select waiver__input" name="waiver" id="waiver" required>
+                      <option value="">Waiver Agreement</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div> -->
+                </div>
+              </div>
+              <h1>Step 2: Emergency Contact Info</h1>
+              <hr/>
+              <div class="column1">
+                <div class="form__container">
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergencyFullName"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      name="emergencyFullName"
+                      placeholder="Full Name"
+                      class="emergency__full__name__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergencyPhone">Phone Number</label>
+                    <input
+                      type="text"
+                      name="emergencyPhone"
+                      placeholder="Phone Number"
+                      class="emergency__phone__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergency__relationship"
+                    >Relationship</label
+                  >
+                    <select class="gb__select emergency__relationship__input gb__input" required  name="emergency__relationship" placeholder="Relationship">
+                      <option value="">select</option>
+                      <option value="Parent">Parent</option>
+                      <option value="Spouse">Spouse</option>
+                      <option value="sibling">Sibling</option>
+                      <option value="familyMember">Family member</option>
+                      <option value="legalguardian">Legal Guardian</option>
+                      <option value="caretaker">Caretaker</option>
+                    </select>
+                  </div>
+                  <div class="form__container">
+
+                  </div>
+                </div>
+              </div>
+              <!-- Step 3: Child Info -->
+              <h1>Step 3: Child's Info</h1>
+              <hr/>
+            <div class="column1">
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_name"
+                      >Students Name</label
+                    >
+                    <input
+                      type="text"
+                      name="student_name"
+                      placeholder="Child Name"
+                      class="student__name__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_birthday"
+                      >Students Birthday</label
+                    >
+                    <input
+                      type="date"
+                      name="student_birthday"
+                      placeholder="Child Grade"
+                      class="width240 student__birthday__input gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_grade"
+                      >Jiu-Jitsu Program</label
+                    >
+                    <select name="Jiu-Jitsu_program" class="gb__select student__program__input gb__input" required >
+                      <option value="">Select Program</option>
+                      <option value="tiny_champion">Tiny Champions</option>
+                      <option value="little_champion">Little Champion</option>
+                      <option value="junior_champion">
+                        Juniors Champion
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="student__perfered__schedule"
+                      >Perfered Schedule</label
+                    >
+                    <select name="student__perfered__schedule" class="gb__select student__perfered__schedule__input" required >
+                      <option value="">Perfered Schedule</option>
+                      <option value="Monday - Wednesday - Friday">Monday - Wednesday - Friday </option>
+                      <option value="Tuesday - Thursday - Saturday">Tuesday - Thursday </option>
+                    </select>
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_start_date"
+                  >Students Start Date</label>
+                  <input
+                    type="date"
+                    name="student_start_date"
+                    placeholder="Student Start Date"
+                    class="width240 student__start__date__input gb__input"
+                    required
+                  />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="after_school_pickup"
+                      >After School Pick-up</label
+                    >
+                    <select name="after_school_pickup" class="gb__select after__school__pickup__input" required >
+                      <option value="">Pick-up Option</option>
+                      <option value="2-days">2 days a week (Tuesday and Thursday)</option>
+                      <option value="3-days">3 days a week (Monday, Wednesday, and Friday)</option>
+                      <option value="4-days">4 days a week</option>
+                      <option value="5-days">5 days a week</option>
+                    </select>
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__laebl" for="additional__info"
+                      >Additional Info</label>
+                    <textarea name="additional__info" class="additional__info__input gb__input" placeholder="Additional Info"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!--Credit Card Info -->
+              <section class="section3">
+                <h1>Step 4: Credit Card Info</h1>
+                <hr/>
+                <div class="column1">
+                  <div class="form__container">
+                    <div class="form__input__container">
+                      <label class="form__label" for="credit__card__name"
+                        >Full Name</label
+                      >
+                      <input
+                        type="text"
+                        name="credit__card__name"
+                        placeholder="Full Name"
+                        class="credit__card__name__input gb__input"
+                        required
+                      />
+                    </div>
+
+                    <div class="form__input__container column-width40">
+                      <label class="form__label" for="credit_card_cvv"
+                        >Credit Card CVV</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_cvv"
+                        placeholder="CVV"
+                        class="credit__card__cvv__input gb__input"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="form__container">
+                    <div class="form__input__container">
+                      <label class="form__label" for="credit_card_number"
+                        >Credit Card Number</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_number"
+                        placeholder="***************"
+                        class="credit__card__number__input gb__input"
+                        required
+                      />
+                    </div>
+
+                    <div class="form__input__container column-width50">
+                      <label class="form__label" for="credit_card_expiration"
+                        >Credit Card Expiration</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_expiration"
+                        placeholder="Credit Card Expiration"
+                        class="credit__card__expiration__input gb__input"
+                        required
+                      />
+                    </div>
+                    <div class="form__input__container column-width50">
+                      <label class="form__label" for="perfered_payment_date">
+                        Perfered Payment Date
+                      </label>
+                      <select class="gb__select perfered__payment__date__input" name="perfered_payment_date" required >
+                        <option value="">Perfered Payment Date</option>
+                        <option value="1st">1st</option>
+                        <option value="15th">15th</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <h1>Step 5: Submit</h1>
+                <hr/>
+                <div class="form__container column-width20">
+                  <button class="form__submit">Submit</button>
+                </div>
+              </section3>
+            </form>
+          </div>
+        </section>
+        <!-- student count -->
+      </div>
+      <!--Parent Sign up form ends -->
+
+      <!-- Monthly Income Display -->
+      <div class="section__wrapper monthly__income__display  hidden">
+        <div class="displayFlex">
+          <section class="section2__container">
+            <div class="grand__opening__deal__container">
+              <p>Grand Opening Deal Income <br> <span>Student count:  <span class="grandOpeningCount">0</span> </span></p>
+              <hr/>
+              <p class="grand__opening__deal__count">0</p>
+            </div>
+            <div class="monthly__income__container">
+              <span class="hidden">Student count:  <span class="studentCount">0</span></span></p>
+              <p >Monthly Income 
+              <p class="after__school__header">Kids Saturday 1 day a week class count: <span class="option__saturday__count2">0</span></p>
+              </p>
+              <hr/>
+              <p class="monthly__income__saturday__count">$ 0</p>
+            
+              <hr/>
+              <p class="after__school__header">Kids 2 Days a week count: <span class="option__2days__count2">0</span>   </p>
+              <p class="monthly__income__2days__count">$ 0</p>
+          
+              <hr/>
+              <p class="after__school__header">Kids 3 Days a week count: <span class="option__3days__count2">0</p>
+              <p class="monthly__income__count hidden"></p>
+              <p class="monthly__income__3days__count">$ 0</p>
+              
+              <hr/>
+              <p class="after__school__header">Adults classes count: <span class="option__adults__count2">0</span> </p>
+              <p class="monthly__income__adults__count">$ 0</p>
+            
+              <hr>
+              <p class="after__school__header">Total monthly Income:</p>
+              <p class="monthly__income__total__count">$ 0</p>
+            </div>
+            <div class="after__school__pickup__container">
+              <p>After School Pick-up Income <br><span>After School Pickup count: <span class="afterSchoolPickupCount2">0</span>  </span></p>
+              <hr/>
+              <p class="after__school__header">2 Days student count: <span class="num__count2"></span></p>
+              <p class="after__school__2__day">0</p>
+              <hr />
+              <p class="after__school__header">3 Days student count: <span class="num__count3"></span></p>
+              <p class="after__school__3__day">0</p>
+              <hr/>
+              <p class="after__school__header">4 Days student count: <span class="num__count4"></span></p>
+              <p class="after__school__4__day">0</p>
+              <hr/>
+              <p class="after__school__header">5 Days student count: <span class="num__count5"></span></p>
+              <p class="after__school__5__day">0</p>
+              <p class="after__school__header">Total </p>
+              <hr/>
+              <p class="after__school__pickup__count">0</p>
+            </div>
+
+          </section>
+          <!--incom bar chart-->
+          <section class="section6__container">
+            <div class="profit__bar__chart__container">
+              <div class="profit__bar__chart__wrapper">
+                <div class="profit__bar__chart__title">
+                  <h2>Monthly Profit 💲<br> <span>monthly Income + after school pickup</span></h2>
+                </div>
+                <div class="profit__bar__chart__container">
+                  <div class="profit__bar__text__content">
+                    <p class="profit__bar__title">$80,000</p>
+                    <p class="profit__bar__title">$70,000</p>
+                    <p class="profit__bar__title">$60,000</p>
+                    <p class="profit__bar__title">$50,000</p>
+                    <p class="profit__bar__title">$40,000</p>
+                    <p class="profit__bar__title">$30,000</p>
+                    <p class="profit__bar__title">$20,000</p>
+                    <p class="profit__bar__title">$10,000</p>
+                    <p class="profit__bar__title">$8,000</p>
+                    <p class="profit__bar__title">$6,000</p>
+                    <p class="profit__bar__title">$4,000</p>
+                    <p class="profit__bar__title">$2,000</p>
+                    <p class="profit__bar__title">$0</p>
+                  </div>
+                  <div class="profit__bar__chart__content">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                  <div class="profit__bubble__chart__content">
+                    <div class="myBubbleChart"></div>
+                </div>
+              </div>
+          </section>
+          <section class="section7__container">
+            <div class="perfered__payment__date__container">
+              <div class="perfered__payment__date__title">
+                <h2 class="textCenter">Preferred Payment Date</h2>
+              </div>
+              <div class="perfered__payment__date__date">
+                <p class="first__of__the__month">The 1st of the month payments are due today take payment!!!!⏰</p>
+                <p class="fifthteen__of__the__month">The 15th of the month payments are due today take payment!!!!⏰</p>
+              </div>
+            </div>
+              <div class="monthly__rent__container">
+                <p>Monthly Bills and Rent ($8,000) <br> <span>monthly income + after school pickup</span></p>
+                <hr/>
+                <div class="monthly__rent__count">
+                  <p>$ 0</p>  
+                </div>
+              </div>
+              <div class="monthly__profit__container">
+                <p>Current Monthly Profit <br> <span>monthly income + after school pickup</span></p>
+                <hr/>
+                <p class="monthly__profit__count">$ 0</p>
+              </div>
+          </section>
+        </div>
+
+        <!-- progress bar section -->
+        <section class="section3__container">
+          <div class="progress__bar__program__container">
+            <div class="text_container">
+             <h3>Our goal to reach 120 students by the end of the year</h3>
+            </div>
+            <div class="text__container">
+              <p>Tiny Champions </br><p class="tiny__champ__progress__bar__count"></p> </p>
+            </div>
+            <div class="progress__bar__program">
+              <div class="tiny__champ__bar__fill"></div>
+              <span>/60</span>
+            </div>
+          </div>
+          <div class="progress__bar__program__container">
+            <div class="text__container">
+              <p>Little Champions </br> <p class="little__champ__progress__bar__count"></p> </p>
+            </div>
+            <div class="progress__bar__program">
+              <div class="little__champ__bar__fill"></div>
+              <span>/60</span>
+            </div>
+          </div>
+          <div class="progress__bar__program__container">
+            <div class="text__container">
+              <p>Adults Jiu-Jitsu Program </br><p class="junior__champ__progress__bar__count"></p> </p>
+            </div>
+            <div class="progress__bar__program">
+              <div class="junior__champ__bar__fill"></div>
+              <span>/60</span>
+            </div>
+          </div>
+          <div class="progress__bar__program__container">
+            <div class="text__container">
+              <p>Saturday Jiu-Jitsu Program </br><p class="saturday__champ__progress__bar__count"></p> </p>
+            </div>
+            <div class="progress__bar__program">
+              <div class="saturday__champ__bar__fill"></div>
+              <span>/60</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <section class="section4__container">
+        <div class="tabs__container">
+          <div class="tab__container__header">
+            <div class="tab__container__header__text tab1 student__info  tabActive" data-tab="1">
+              <p>Students Info</p>
+            </div>
+            <div class="tab__container__header__text tab2 parents__info" data-tab="2">
+              <p>Parents Info</p>
+            </div>
+            <div class="tab__container__header__text tab3 creditcard__info" data-tab="3">
+              <p>Credit Card Info</p>
+            </div>
+            <div class="tab__container__header__text tab4 jsondata__info " data-tab="4">
+              <p>data.jason file</p>
+            </div>
+            <div class="tab__container__header__text tab5 optionA__info" data-tab="5">
+              <p>Mon - Wed - Fri</p>
+            </div>
+            <div class="tab__container__header__text tab6 optionB__info" data-tab="6">
+              <p>Tues - Thurs</p>
+            </div>
+            <div class="tab__container__header__text tab7 optionC__info" data-tab="7">
+              <p>Gi Inventory</p>
+            </div>
+            <div class="tab__container__header__text tab7 optionC__info" data-tab="8">
+              <p>Saturday</p>
+            </div>
+        </div>
+
+          <!-- student cards  -->
+          <div class="info__content main__info__container--1 contentActive">
+            <h2 class="student__info__title">Tiny Champions</h2>
+            <div class="outter__container">
+              <div class="card__row__container tiny__champ__row">
+              </div>
+            </div>
+            <h2 class="student__info__title">Little Champions</h2>
+            <div class="outter__container">
+              <div class="card__row__container little__champ__row">
+              </div>
+            </div>
+            <h2 class="student__info__title">Adults Jiu-Jitsu Program</h2>
+            <div class="outter__container">
+              <div class="card__row__container junior__champ__row">
+              </div>
+            </div>
+            <h2 class="student__info__title">Saturday No-Gi Self-defense</h2>
+            <div class="outter__container">
+              <div class="card__row__container saturday__champ__row">
+              </div>
+            </div>
+          </div>
+
+          <!-- Parents Info -->
+          <div class="info__content main__info__container--2 ">
+            <div class="card__row__container parents__row">
+            </div>
+          </div>
+
+          <!-- credit card Info -->
+            <div class="info__content main__info__container--3 ">
+              <h2 class="textCenter">Perfered Payment Date</h2>
+              <h2>The 1st of the month</h2>
+              <div class="card__row__container credit__card__row">
+              </div>
+              <hr/>
+              <h2>The 15th of the month</h2>
+              <div class="card__row__container credit__card__row2">
+              </div>
+            </div>
+
+            <!-- data.jason file -->
+            <div class="info__content main__info__container--4 hidden ">
+              <h2>Copy and paste: </br> <span>json object into data.json file to update userdata, after new entry. </span></h2>
+              <div class="card__row__container json__data__row">
+                <input type="text" class="gb__input  json__data__input"/>
+                <button class="copy__all__button">Copy All</button>
+              </div>
+            </div>
+
+            <!-- option A -->
+            <div class="info__content main__info__container--5  hidden">
+              <h2 class="textCenter">Monday - Wednesday - Friday</h2>
+              <div class="card__row__container optionA__row">
+                <div class="outter__container2">
+                  <div class="card__row__container tiny__champ__row2"></div>
+                </div>
+                <div class="outter__container2">
+                  <div class="card__row__container little__champ__row2"></div>
+                </div>
+                <div class="outter__container2">
+                  <div class="card__row__container junior__champ__row2"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- option B -->
+            <div class="info__content main__info__container--6 hidden ">
+              <h2 class="textCenter">Tuesday - Thursday</h2>
+              <div class="card__row__container optionB__row">
+                <div class="outter__container2">
+                  <div class="card__row__container tiny__champ__row3 ">
+                  </div>
+                </div>
+                <div class="outter__container2">
+                  <div class="card__row__container little__champ__row3">
+                  </div>
+                </div>
+                <div class="outter__container2">
+                  <div class="card__row__container junior__champ__row3">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inventory -->
+            <div class="info__content main__info__container--7 hidden ">
+              <h2 class="textCenter">Inventory</h2>
+
+              <div class="inventory__list">
+                <div class="inventory__item">
+                <h2 class="list__header">Gi's and Belt and RashGuard Inventory</h2>
+                </div>
+                <h3 class="list__header__sub">Gi's</h3>
+                <div class="inventory__items">
+                  <p class="item__list">M00</p>
+                  <p class="item__list__total__count gi__count1">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">M0</p>
+                  <p class="item__list__total__count gi__count2">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">M1</p>
+                  <p class="item__list__total__count gi__count3">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">M2</p>
+                  <p class="item__list__total__count gi__count4">0</p>
+                </div>
+                <hr>
+                <h3 class="list__header__sub">Belts</h3>
+                <div class="inventory__items">
+                  <p class="item__list">M00</p>
+                  <p class="item__list__total__count gi__count1">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">M0</p>
+                  <p class="item__list__total__count gi__count2">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">M1</p>
+                  <p class="item__list__total__count gi__count3">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">M2</p>
+                  <p class="item__list__total__count gi__count4">0</p>
+                </div>
+                <hr>
+                <h3 class="list__header__sub">Rash Guards</h3>
+                <div class="inventory__items">
+                  <p class="item__list">YS</p>
+                  <p class="item__list__total__count gi__count5">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">YM</p>
+                  <p class="item__list__total__count gi__count6">0</p>
+                </div>
+                <hr>
+                <div class="inventory__items">
+                  <p class="item__list">YL</p>
+                  <p class="item__list__total__count gi__count7">0</p>
+                </div>
+                <hr>
+              </div>
+              <div class="inventory__main__container">
+                <div class="rash__header">
+                  <h2 class="textCenter">Gi's and Belts Inventory</h2>
+                </div>
+                <!-- Gi's and Belt-->
+                <div class="inventory__wrapper displayFlex">
+                  <!-- M00 Size -->
+                  <div class="card__row__container inventory__container">
+                    <div class="gi__header">
+                      <p class="fontsmall textCenter">(Gi and belt size)</p>
+                      <h3 class="textCenter">M00 </h3>
+                      <p class="gi__count textCenter">Gis and Belts in stock</p>
+                      <p class="gi__count1 textCenter">0</p>
+                      <hr>
+                    </div>
+                    <div class="gi__body">
+                    <button class="minus__button minus-1" data-minus="1">➖</button>
+                    <div class="count1 textCenter" >0</div>
+                    <button class="plus__button plus-1" data-plus="1">➕</button>
+                  </div>
+                </div>
+
+                <!-- M0 Size -->
+                <div class="card__row__container inventory__container">
+                  <div class="gi__header">
+                    <p class="fontsmall textCenter">(Gi and belt size)</p>
+                    <h3 class="textCenter">M0 </h3>
+                    <p class="gi__count textCenter">Gis and Belts in stock</p>
+                    <p class="gi__count2 textCenter">0</p>
+                    <hr>
+                  </div>
+                  <div class="gi__body">
+                    <button class="minus__button minus-2" data-minus="2">➖</button>
+                    <div class="count2 textCenter">0</div>
+                    <button class="plus__button plus-2" data-plus="2">➕</button>
+                  </div>
+                </div>
+
+                <!-- M1 Size -->
+                <div class="card__row__container inventory__container">
+                  <div class="gi__header">
+                    <p class="fontsmall textCenter">(Gi and belt size)</p>
+                    <h3 class="textCenter">M1 </h3>
+                    <p class="gi__count textCenter">Gis and Belts in stock</p>
+                    <p class="gi__count3 textCenter">0</p>
+                    <hr>
+                  </div>
+                  <div class="gi__body">
+                    <button class="minus__button minus-3" data-minus="3">➖</button>
+                    <div class="count3 textCenter">0</div>
+                    <button class="plus__button plus-3" data-plus="3">➕</button>
+                  </div>
+                </div>
+                
+                <!-- M2 Size -->
+                <div class="card__row__container inventory__container">
+                  <div class="gi__header">
+                    <p class="fontsmall textCenter">(Gi and belt size)</p>
+                    <h3 class="textCenter">M2 </h3>
+                    <p class="gi__count textCenter">Gis and Belts in stock</p>
+                    <p class="gi__count4 textCenter">0</p>
+                    <hr>
+                  </div>
+                  <div class="gi__body">
+                    <button class="minus__button minus-4" data-minus="4">➖</button>
+                    <div class="count4 textCenter">0</div>
+                    <button class="plus__button plus-4" data-plus="4">➕</button>
+                  </div>
+                </div>
+                </div><!-- inventory wrapper -->
+
+                <!-- Rash Guard -->
+                <div class="rash__guard__container">
+                    <div class="rash__header">
+                      <h2 class="textCenter">Rashs Guards Inventory</h2>
+                    </div>
+                    <div class="inventory__wrapper displayFlexCenter">
+                      <!-- Rash guard Sizes -->
+
+                      <!-- YS Sizes -->
+                      <div class="card__row__container inventory__container">
+                        <div class="gi__header">
+                          <p class="fontsmall textCenter">(Rash guard size)</p>
+                          <h3 class="textCenter">YS </h3>
+                          <p class="gi__count textCenter">Rash Guard in stock</p>
+                          <p class="gi__count5 textCenter">0</p>
+                          <hr>
+                        </div>
+                        <div class="gi__body">
+                          <button class="minus__button minus-5" data-minus="5">➖</button>
+                          <div class="count5 textCenter" >0</div>
+                          <button class="plus__button plus-5" data-plus="5">➕</button>
+                          </div>
+                      </div>
+
+                      <!-- YM Sizes -->
+                      <div class="card__row__container inventory__container">
+                        <div class="gi__header">
+                          <p class="fontsmall textCenter">(Rash guard size)</p>
+                          <h3 class="textCenter">YM </h3>
+                          <p class="gi__count textCenter">Rash Guard in stock</p>
+                          <p class="gi__count6 textCenter">0</p>
+                          <hr>
+                        </div>
+                        <div class="gi__body">
+                          <button class="minus__button minus-6" data-minus="6">➖</button>
+                          <div class="count6 textCenter" >0</div>
+                          <button class="plus__button plus-6" data-plus="6">➕</button>
+                          </div>
+                      </div>
+
+                      <!-- YL Sizes -->
+                      <div class="card__row__container inventory__container">
+                        <div class="gi__header">
+                          <p class="fontsmall textCenter">(Rash guard size)</p>
+                          <h3 class="textCenter">YL </h3>
+                          <p class="gi__count textCenter">Rash Guard in stock</p>
+                          <p class="gi__count7 textCenter">0</p>
+                          <hr>
+                        </div>
+                        <div class="gi__body">
+                          <button class="minus__button minus-7" data-minus="7">➖</button>
+                          <div class="count7 textCenter" >0</div>
+                          <button class="plus__button plus-7" data-plus="7">➕</button>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!--option C-->
+            <div class="info__content main__info__container--8 hidden">
+              <h2 class="textCenter">Saturday</h2>
+              <div class="card__row__container ">
+                <div class="outter__container2">
+                  <div class="card__row__container saturday__champ__row3">
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+      </section>
+      
+      <!-- export user data arry to excel file button -->
+      <section class="section5__container">
+        <div class="export__button__container">
+
+          
+          <button class="export__button">Export</button>
+          <a class="csv__download hidden" href="#" target="_blank" download="data.csv">file download</a>
+        </div>
+
+      </section>
+    </div>
+    <!-- GB Student Dashboard -->
+
+
+    <!-- Customer Sign up Form  -->
+    <div class="customer__signup__form__container hidden">
+      <div class="customer__signup__form__header__container">
+        <h1>GB Lake Country Parents Registration Form  </h1>
+      </div>
+      <div class="customer__signup__form">
+        <div clas="add__new__student__container">
+          
+          <!-- congrats for signing up -->
+          <div class="congrats__container hidden">
+            <h1>Congratulations!</h1>
+            <p class="student__enrollment__name">
+              Leiya
+            </p>
+            <img  src="./images/Official-GB-Lake-country-logo.png" class="congrats__logo" alt="GB Lake Country Logo" />
+            <p>
+              Welcome to <br> Gracie Barra Jiu-Jitsu!!! 
+            </p>
+          </div>
+
+          <!-- Customer signup Form -->
+          <form class="form">
+            <!-- Step 1 Parents Info -->
+            <div class="customer__signup__form__body__container step-1 customerBodyActive">
+              <h1 class="customer__h1">Step: 1 of 5</h1>
+              <h2 class="customer__h2">Parent's Info</h2>
+              <hr/>
+              <div class="form__group">
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="firstName"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      name="first_name"
+                      placeholder="Frist Name"
+                      class="first__name__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="lastName">Last Name</label>
+                    <input
+                      type="text"
+                      name="last_name"
+                      placeholder="Last Name"
+                      class="last__name__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="email">Email</label>
+                    <input type="text" name="email" placeholder="Email" class="email__input__customer gb__input" />
+                  </div>
+                </div>
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="phone">Phone</label>
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="Phone Number"
+                      class="phone__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="address">Address</label>
+                    <input
+                      type="address"
+                      name="address"
+                      placeholder="Address"
+                      class="address__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <!-- <div class="form__input__container">
+                    <label class="form__label" for="waiver">Waiver Agreement</label>
+                    <input
+                    type="checkbox"
+                    name="waiver"
+                    class="waiver__input__customer gb__checkbox"
+                    required
+                  />
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+            <!--Step 2 emergency contact Info  -->
+            <div class="customer__signup__form__body__container step-2">
+              <h1 class="customer__h1">Step: 2 of 5 </h1>
+              <h2 class="customer__h2">Emergency Contact Info</h2>
+              <hr/>
+              <div class="form__group">
+                <div class="form__container">
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergencyFullName"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      name="emergencyFullName"
+                      placeholder="Full Name"
+                      class="emergency__full__name__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergencyPhone">Phone Number</label>
+                    <input
+                      type="text"
+                      name="emergencyPhone"
+                      placeholder="Phone Number"
+                      class="emergency__phone__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergency__relationship"
+                    >Relationship</label
+                  >
+                    <select class="gb__select emergency__relationship__input__customer gb__input" required  name="emergency__relationship" placeholder="Relationship">
+                      <option value="">select</option>
+                      <option value="Parent">Parent</option>
+                      <option value="Spouse">Spouse</option>
+                      <option value="sibling">Sibling</option>
+                      <option value="familyMember">Family member</option>
+                      <option value="legalguardian">Legal Guardian</option>
+                      <option value="caretaker">Caretaker</option>
+                    </select>
+                  </div>
+              </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Child Info -->
+            <div class="customer__signup__form__body__container step-3">
+              <h1 class="customer__h1">Step: 3 of 5</h1>
+              <h2 class="customer__h2">Student Info</h2>
+              <hr/>
+              <div class="form__group">
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_grade"
+                      >Jiu-Jitsu Program</label
+                    >
+                    <select name="Jiu-Jitsu_program" class="gb__select student__program__input__customer gb__input" required >
+                      <option value="">Select Program</option>
+                      <option value="tiny_champion">Tiny Champions (ages 4 - 6)</option>
+                      <option value="little_champion">Little Champion (ages 7 - 13)</option>
+                      <option value="junior_champion">
+                        Adult Jiu-Jitsu Program (ages 14+)
+                      </option>
+                      <option value="saturday_champion">
+                        Saturday Jiu-Jitsu Program  (ages 5-13)
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_name"
+                      >Child Name</label
+                    >
+                    <input
+                      type="text"
+                      name="student_name"
+                      placeholder="Child Name"
+                      class="student__name__input__customer gb__input"
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_birthday"
+                      >Child Birthday</label
+                    >
+                    <input
+                      type="date"
+                      name="student_birthday"
+                      placeholder="Child Birthday"
+                      class="width240 student__birthday__input__customer gb__input"
+                      required
+                    />
+                  </div>
+
+                </div>
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <p class="">Perfered Schedule</p>
+                    <select name="perfered_schedule" class="gb__select  gb__input student__perfered__schedule__input__customer" required >
+                      <option value="">Select Schedule</option>
+                      <option value="Monday - Wednesday - Friday">Monday - Wednesday - Friday (3 days a week)</option>
+                      <option value="Tuesday - Thursday - Saturday">Tuesday - Thursday (2 days a week)</option>
+                      <option value="Saturday">Saturday(1 day a week)</option>
+                    </select>
+
+                    <!-- <div class="form__input__container__checkbox">
+                      <label for="week1">Monday - Wednesday - Friday </label>
+                      <input type="radio" id="week1" class="student__perfered__schedule__input__customer" name="perfered_schedule" value="Monday - Wednesday - Friday">
+                    </div>
+                    <div class="form__input__container__checkbox">
+                      <label for="week2">Tuesday - Thursday</label>
+                      <input type="radio" id="week2" class="student__perfered__schedule__input__customer" name="perfered_schedule" value="Tuesday - Thursday - Saturday">
+                    </div>
+                    <div class="form__input__container__checkbox">
+                      <label for="week3">Saturday</label>
+                      <input type="radio" id="week3" class="student__perfered__schedule__input__customer" name="perfered_schedule" value="Saturday">                       
+                    </div> -->
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="additional__info"
+                      >Additional Info</label>
+                    <textarea name="additional__info" class="gb__input additional__info__input__customer" placeholder="Additional Info"></textarea>
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="after_school_pickup"
+                      >After School Pick-up options</label
+                    >
+                    <select name="after_school_pickup" class="gb__select after__school__pickup__input__customer" required >
+                      <option value="">Pick-up Option availability</option>
+                      <option value="2-days">2 days a week (Tuesday and Thursday)</option>
+                      <option value="3-days">3 days a week (Monday, Wednesday, and Friday)</option>
+                      <option value="4-days">4 days a week</option>
+                      <option value="5-days">5 days a week</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- step 4 signature wavier -->
+            <div class="customer__signup__form__body__container step-4">
+              <h1 class="customer__h1">Step: 4 of 5</h1>
+              <h2 class="customer__h2">Signature Waiver</h2>
+              <h3 class="waiver__header">Waiver / Liability & After-school pickup service</h3>
+              <hr/>
+              <div class="form__group">
+                <div class="form__container ">
+                  <div class="form__input__container ">
+                    <label class="form__label" for="signature">Signature</label>
+                      <canvas id="signature-pad"  class="signature__pad" width="495" height="150"></canvas>
+                  </div>    
+                  <div class="form__input__container">
+                    <input
+                      type="date"
+                      name="date"
+                      placeholder="Date"
+                      class="date__input__customer gb__input hidden"
+                      required
+                    />
+                  </div>   
+                </div>
+                <div class="form__container">
+                  <button class="waiver__button">Waiver</button>
+                  <div class="waiver__container">
+                    <p class="waiver">I am aware that fitness activities, particularly martial arts, involve the risk of injury.
+                      I ACKNOWLEDGE AND ACCEPT THESE RISKS and all others arising from my participation in the classes and programs offered by the Operator either at the Academy or at demonstrations or events outside of the Academy and my use of the Academy and equipment at the Academy.
+                      I understand that all instructions and rules for safe participation must be followed and that the SOLE RESPONSIBILITY FOR MY SAFETY REMAINS WITH ME, including my physical and emotional preparation and fitness to participate in classes and events that I choose to join.
+                      I agree to remove myself from participation in any activity if I sense or observe any unusual hazard or unsafe condition or if, at any time in the Academy or in any class or event, I feel unable or unfit to continue for any reason.
+                      I, at this moment, WAIVE, RELEASE, AND DISCHARGE the Operator and its successors, assigns, owners, officers, directors, employees, agents, and other representatives (“Released Parties”) from any liability for my death, disability, illness or personal injury, or damage or theft of my personal property (“Losses”), occurring while attending the Academy, participating in any activity at the Academy or participating in any activity organized by the Operator outside of the Academy even if such Losses arise from equipment failure or the Released Parties’ negligence, gross negligence or willful neglect.
+                      I, at this moment, PROTECT, DEFEND, HOLD HARMLESS, AND INDEMNIFY each of the Released Parties from and against any claims, actions, causes of action, proceedings, suits, costs, liabilities, damages, and expenses, whether known or unknown (including but not limited to all direct, special, incidental, exemplary and consequential damages, and losses of any kind and lawyer’s fees) based upon, resulting from and relating in any way to my membership at the Academy.
+                      Coronavirus Waiver Addendum
+                      As an Addendum to the Waiver you have previously signed with us as a member, you agree to and understand the following:
+                      By entering this facility, you are aware that you agree to fully accept all known and unknown risks, including the potential risk of exposure to respiratory illnesses such as the coronavirus (COVID-19). The coronavirus is primarily transmitted via exhaled respiratory droplets, most often through coughing and sneezing. These droplets can travel up to six feet and are more commonly shared between persons than from equipment.
+                      Although we regularly sanitize our equipment and presently are using enhanced cleaning methods and enforcing social distancing, where possible, in our facility, you understand that you may be exposed to the coronavirus or its symptoms through no fault of your own or your participation in classes.
+                      Known coronavirus symptoms include fever, coughing, shortness of breath, pneumonia, kidney failure, and may have other symptoms, stroke, or even death (collectively “Symptoms”).
+                      You understand and agree that you will hold us harmless. You will not hold us liable for any actual or perceived Symptoms of COVID-19 or any other disease, illness, or condition, nor for exacerbating any existing symptoms. You fully agree to accept all risks of entering the facility, using the equipment, working with personal trainers, attending classes, and interacting with or being exposed to other members.</p>
+                      <br>
+                      <div class="after__school__waiver">
+                        <h2>After-school pickup Service Policies</h2>
+                          <ol>
+                            <li>NO SCHOOL DAYS: All After School Pickup service are held only when schools are in session.
+                              This program does not operate during statutory holidays, professional development days,</li>
+                            <li>SICK DAYS: Parents are to call to advise no after school pickup required (778)235 -8364 and leave a message
+                              before 1pm of the day in</li>
+                            <li>AFTER SCHOOL CARE vs AFTER SCHOOL PROGRAM: We are not a care program. We
+                              are an alternative to daycares. We have a full program that revolves around Brazilian Jiu-
+                              Jitsu (BJJ) and BJJ related activities. We do not provide  snack or books.</li>
+                              <li>PARENTS’ PICK-UP TIME: Parents are expected to pick up their child(ren) at the end of there Jiu-Jitsu class.</li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+          
+
+            <!-- Step 5: Credit Card Info -->
+            <div class="customer__signup__form__body__container step-5">
+                <h1 class="customer__h1">Step: 5 of 5</h1>
+                <h2 class="customer__h2">Credit Card Info</h2>
+                <hr/>
+                <div class="form__group">
+                  <div class="form__container">
+                    <div class="form__input__container">
+                      <label class="form__label" for="credit__card__name"
+                        >Full Name</label
+                      >
+                      <input
+                        type="text"
+                        name="credit__card__name"
+                        placeholder="Full Name"
+                        class="credit__card__name__input__customer gb__input"
+                        required
+                      />
+                    </div>
+
+                    <div class="form__input__container column-width40">
+                      <label class="form__label" for="credit_card_cvv"
+                        >Credit Card CVV</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_cvv"
+                        placeholder="CVV"
+                        class="credit__card__cvv__input__customer gb__input"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="form__container">
+                    <div class="form__input__container">
+                      <label class="form__label" for="credit_card_number"
+                        >Credit Card Number</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_number"
+                        placeholder="***************"
+                        class="credit__card__number__input__customer gb__input"
+                        required
+                      />
+                    </div>
+
+                    <div class="form__input__container column-width50">
+                      <label class="form__label" for="credit_card_expiration"
+                        >Credit Card Expiration</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_expiration"
+                        placeholder="01/21"
+                        class="credit__card__expiration__input__customer gb__input"
+                        required
+                      />
+                    </div>
+                    <div class="form__input__container column-width50">
+                      <label class="form__label" for="perfered_payment_date">
+                        Perfered Payment Date
+                      </label>
+                      <select class="gb__select perfered__payment__date__input__customer" name="perfered_payment_date" required >
+                        <option value="">Perfered Payment Date</option>
+                        <option value="1st">1st</option>
+                        <option value="15th">15th</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <!-- Steps button and Back button -->
+            <div class="form__input__submit__container">
+              <button class="steps__count step__5__button customer__form__submit hidden" type="submit">
+                Submit
+              </button>
+            </div>
+          </form>
+          <div class="form__container button__container customer__form__container__submit">
+            <button class="back__button__step2 hidden">Back to step 1</button>
+            <button class="back__button__step3 hidden">Back to step 2</button>
+            <button class="back__button__step4 hidden">Back to step 3</button>
+            <button class="back__button__step5 hidden">Back to step 4</button>
+            <button class="steps__count step__1__button stepActive">Next step 2</button>
+            <button class="steps__count step__2__button hidden"> Next step 3</button>
+            <button class="steps__count step__3__button hidden">Next step 4</button>
+            <button class="steps__count step__4__button hidden">Next step 5</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- Customer Sign up Form  -->
+
+
+    <!-- Modal -->
+    <div class="modal__container hidden">
+      <div class="modal__content">
+        <div class="modal__body">
+          
+
+          <div clas="add__new__student__container">
+            <h1>Step 1: Parent's Info</h1>
+            <hr/>
+            <form class="form">
+
+              <!-- Step 1 Parents Info -->
+              <div class="column1">
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="firstName"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      name="first_name"
+                      placeholder="Frist Name"
+                      class="first__name__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="lastName">Last Name</label>
+                    <input
+                      type="text"
+                      name="last_name"
+                      placeholder="Last Name"
+                      class="last__name__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="email">Email</label>
+                    <input type="text" name="email" placeholder="Email" class="email__input__modal gb__input " />
+                  </div>
+                </div>
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="phone">Phone</label>
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="Phone Number"
+                      class="phone__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="address">Address</label>
+                    <input
+                      type="address"
+                      name="address"
+                      placeholder="Address"
+                      class="address__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2 Emergency Contact Info -->
+              <h1>Step 2: Emergency Contact Info</h1>
+              <hr/>
+              <div class="column1">
+                <div class="form__container">
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergencyFullName"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      name="emergencyFullName"
+                      placeholder="Full Name"
+                      class="emergency__full__name__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergencyPhone">Phone Number</label>
+                    <input
+                      type="text"
+                      name="emergencyPhone"
+                      placeholder="Phone Number"
+                      class="emergency__phone__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container width495">
+                    <label class="form__label" for="emergency__relationship"
+                    >Relationship</label
+                  >
+                    <select class="gb__select emergency__relationship__input__modal gb__input " required  name="emergency__relationship" placeholder="Relationship">
+                      <option value="">select</option>
+                      <option value="Parent">Parent</option>
+                      <option value="Spouse">Spouse</option>
+                      <option value="sibling">Sibling</option>
+                      <option value="familyMember">Family member</option>
+                      <option value="legalguardian">Legal Guardian</option>
+                      <option value="caretaker">Caretaker</option>
+                    </select>
+                  </div>
+                  <div class="form__container">
+
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Step 3: Child Info -->
+              <h1>Step 3: Child's Info</h1>
+              <hr/>
+            <div class="column1">
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_name"
+                      >Students Name</label
+                    >
+                    <input
+                      type="text"
+                      name="student_name"
+                      placeholder="Child Name"
+                      class="student__name__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_birthday"
+                      >Students Birthday</label
+                    >
+                    <input
+                      type="date"
+                      name="student_birthday"
+                      placeholder="Child Grade"
+                      class="width240 student__birthday__input__modal gb__input "
+                      required
+                    />
+                  </div>
+                  <div class="form__input__container">
+                    <label class="form__label" for="student_grade"
+                      >Jiu-Jitsu Program</label
+                    >
+                    <select name="Jiu-Jitsu_program" class="gb__select student__program__input__modal gb__input " required >
+                      <option value="">Select Program</option>
+                      <option value="tiny_champion">Tiny Champions</option>
+                      <option value="little_champion">Little Champion</option>
+                      <option value="junior_champion">
+                        Adults Jiu-Jitsu Program
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form__container">
+                  <div class="form__input__container">
+                    <label class="form__label" for="student__perfered__schedule"
+                      >Perfered Schedule</label
+                    >
+                    <select name="student__perfered__schedule" class="gb__select student__perfered__schedule__input__modal " required >
+                      <option value="">Perfered Schedule</option>
+                      <option value="Monday - Wednesday - Friday">Monday - Wednesday - Friday </option>
+                      <option value="Tuesday - Thursday - Saturday">Tuesday - Thursday</option>
+                    </select>
+                </div>
+                <div
+                class="form__input__container hidden "
+              >
+                <label class="form__label" for="student_start_date"
+                  >Students Start Date</label
+                >
+                <input
+                  type="date"
+                  name="student_start_date"
+                  placeholder="Student Start Date"
+                  class="width240 student__start__date__input__modal gb__input "
+                  required
+                />
+              </div>
+              <div class="form__input__container">
+                <label class="form__label" for="after_school_pickup"
+                  >After School Pick-up</label
+                >
+                <select name="after_school_pickup" class="gb__select after__school__pickup__input__modal " required >
+                  <option value="">Pick-up Option</option>
+                  <option value="2-days">2 days a week (Tuesday and Thursday)</option>
+                  <option value="3-days">3 days a week (Monday, Wednesday, and Friday)</option>
+                  <option value="4-days">4 days a week</option>
+                  <option value="5-days">5 days a week</option>
+                </select>
+              </div>
+              <div class="form__input__container">
+                <label class="form__laebl" for="additional__info"
+                  >Additional Info</label>
+                <textarea name="additional__info" class="gb__input additional__info__input__modal " placeholder="Additional Info"></textarea>
+              </div>
+              </div>
+
+              </div>
+
+              <!-- step 4 signature wavier -->
+              <h2 class="customer__h2">Signature Waiver</h2>
+              <h3 class="waiver__header">Waiver / Liability & After-school pickup service</h3>
+              <hr/>
+              <div class="form__group">
+                <div class="form__container ">
+                  <div class="form__input__container signature__container ">
+                    <label class="form__label" for="signature"
+                      >Signature</label>
+                      <canvas id="signature-pad2"  class="signature__pad signature__pad2"  width="495" height="150"></canvas>
+                  </div>    
+                  <div class="form__input__container">
+                    <input
+                      type="date"
+                      name="date"
+                      placeholder="Date"
+                      class="date__input__customer gb__input hidden"
+                      required
+                    />
+                  </div>   
+                </div>
+                <div class="form__container">
+                  <h3 class="waiver__header">Waiver / Liability & After-school pickup service</h3>
+                  <div class="waiver__container">
+                    <p class="waiver">I am aware that fitness activities, particularly martial arts, involve the risk of injury.
+                      I ACKNOWLEDGE AND ACCEPT THESE RISKS and all others arising from my participation in the classes and programs offered by the Operator either at the Academy or at demonstrations or events outside of the Academy and my use of the Academy and equipment at the Academy.
+                      I understand that all instructions and rules for safe participation must be followed and that the SOLE RESPONSIBILITY FOR MY SAFETY REMAINS WITH ME, including my physical and emotional preparation and fitness to participate in classes and events that I choose to join.
+                      I agree to remove myself from participation in any activity if I sense or observe any unusual hazard or unsafe condition or if, at any time in the Academy or in any class or event, I feel unable or unfit to continue for any reason.
+                      I, at this moment, WAIVE, RELEASE, AND DISCHARGE the Operator and its successors, assigns, owners, officers, directors, employees, agents, and other representatives (“Released Parties”) from any liability for my death, disability, illness or personal injury, or damage or theft of my personal property (“Losses”), occurring while attending the Academy, participating in any activity at the Academy or participating in any activity organized by the Operator outside of the Academy even if such Losses arise from equipment failure or the Released Parties’ negligence, gross negligence or willful neglect.
+                      I, at this moment, PROTECT, DEFEND, HOLD HARMLESS, AND INDEMNIFY each of the Released Parties from and against any claims, actions, causes of action, proceedings, suits, costs, liabilities, damages, and expenses, whether known or unknown (including but not limited to all direct, special, incidental, exemplary and consequential damages, and losses of any kind and lawyer’s fees) based upon, resulting from and relating in any way to my membership at the Academy.
+                      Coronavirus Waiver Addendum
+                      As an Addendum to the Waiver you have previously signed with us as a member, you agree to and understand the following:
+                      By entering this facility, you are aware that you agree to fully accept all known and unknown risks, including the potential risk of exposure to respiratory illnesses such as the coronavirus (COVID-19). The coronavirus is primarily transmitted via exhaled respiratory droplets, most often through coughing and sneezing. These droplets can travel up to six feet and are more commonly shared between persons than from equipment.
+                      Although we regularly sanitize our equipment and presently are using enhanced cleaning methods and enforcing social distancing, where possible, in our facility, you understand that you may be exposed to the coronavirus or its symptoms through no fault of your own or your participation in classes.
+                      Known coronavirus symptoms include fever, coughing, shortness of breath, pneumonia, kidney failure, and may have other symptoms, stroke, or even death (collectively “Symptoms”).
+                      You understand and agree that you will hold us harmless. You will not hold us liable for any actual or perceived Symptoms of COVID-19 or any other disease, illness, or condition, nor for exacerbating any existing symptoms. You fully agree to accept all risks of entering the facility, using the equipment, working with personal trainers, attending classes, and interacting with or being exposed to other members.</p>
+                      <br>
+                      <div class="after__school__waiver">
+                        <h2>After-school pickup Service Policies</h2>
+                          <ol>
+                            <li>NO SCHOOL DAYS: All After School Pickup service are held only when schools are in session.
+                              This program does not operate during statutory holidays, professional development days,</li>
+                            <li>SICK DAYS: Parents are to call to advise no after school pickup required (778)235 -8364 and leave a message
+                              before 1pm of the day in</li>
+                            <li>AFTER SCHOOL CARE vs AFTER SCHOOL PROGRAM: We are not a care program. We
+                              are an alternative to daycares. We have a full program that revolves around Brazilian Jiu-
+                              Jitsu (BJJ) and BJJ related activities. We do not provide  snack or books.</li>
+                              <li>PARENTS’ PICK-UP TIME: Parents are expected to pick up their child(ren) at the end of there Jiu-Jitsu class.</li>
+                          </ol>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            
+
+              <!--Credit Card Info -->
+              <section class="section3">
+                <h1>Step 5: Credit Card Info</h1>
+                <hr/>
+                <div class="column1">
+                  <div class="form__container">
+                    <div class="form__input__container">
+                      <label class="form__label" for="credit__card__name"
+                        >Full Name</label
+                      >
+                      <input
+                        type="text"
+                        name="credit__card__name"
+                        placeholder="Full Name"
+                        class="credit__card__name__input__modal gb__input "
+                        required
+                      />
+                    </div>
+
+                    <div class="form__input__container column-width40">
+                      <label class="form__label" for="credit_card_cvv"
+                        >Credit Card CVV</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_cvv"
+                        placeholder="CVV"
+                        class="credit__card__cvv__input__modal gb__input "
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="form__container">
+                    <div class="form__input__container">
+                      <label class="form__label" for="credit_card_number"
+                        >Credit Card Number</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_number"
+                        placeholder="***************"
+                        class="credit__card__number__input__modal gb__input "
+                        required
+                      />
+                    </div>
+
+                    <div class="form__input__container column-width50">
+                      <label class="form__label" for="credit_card_expiration"
+                        >Credit Card Expiration</label
+                      >
+                      <input
+                        type="text"
+                        name="credit_card_expiration"
+                        placeholder="Credit Card Expiration"
+                        class="credit__card__expiration__input__modal gb__input "
+                        required
+                      />
+                    </div>
+                    <div class="form__input__container column-width50">
+                      <label class="form__label" for="perfered_payment_date">
+                        Perfered Payment Date
+                      </label>
+                      <select class="gb__select perfered__payment__date__input__modal " name="perfered_payment_date" required >
+                        <option value="">Perfered Payment Date</option>
+                        <option value="1st">1st</option>
+                        <option value="15th">15th</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <h1>Step 5: Submit</h1>
+                <hr/>
+                <div class="form__container column-width20">
+                  <button class="form__update">Update</button>
+                </div>
+              </section>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="congradulations__modal">
+      <div class="congradulations__modal__container">
+        <div class="congradulations__modal__header">
+          <h1>Congratulations!</h1>
+          <p class="student__enrollment__name__modal">
+            Leiya
+          </p>
+          <img  src="./images/Official-GB-Lake-country-logo.png" class="congrats__logo" alt="GB Lake Country Logo" />
+          <p>
+            Welcome to our <br> <span class="student__enrollment__program__modal"></span>!
+          </p>
+        <!-- <div class="congradulations__modal__button__container">
+          <button class="congradulations__modal__button">Ok</button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="overlay hidden">
+      <h1>Gracie Barra Parents Registration Form</h1>
+    </div>
+
+    <!-- Waiver Modal -->
+    <div class="modal__container waiver__modal__container hidden">
+      <div class="waiver__closes__button__container">
+        <button class="close__waiver__modal__button">Closes</button>
+      </div>
+      <div class="waiver__container__modal">
+        <p class="waiver">I am aware that fitness activities, particularly martial arts, involve the risk of injury.
+          I ACKNOWLEDGE AND ACCEPT THESE RISKS and all others arising from my participation in the classes and programs offered by the Operator either at the Academy or at demonstrations or events outside of the Academy and my use of the Academy and equipment at the Academy.
+          I understand that all instructions and rules for safe participation must be followed and that the SOLE RESPONSIBILITY FOR MY SAFETY REMAINS WITH ME, including my physical and emotional preparation and fitness to participate in classes and events that I choose to join.
+          I agree to remove myself from participation in any activity if I sense or observe any unusual hazard or unsafe condition or if, at any time in the Academy or in any class or event, I feel unable or unfit to continue for any reason.
+          I, at this moment, WAIVE, RELEASE, AND DISCHARGE the Operator and its successors, assigns, owners, officers, directors, employees, agents, and other representatives (“Released Parties”) from any liability for my death, disability, illness or personal injury, or damage or theft of my personal property (“Losses”), occurring while attending the Academy, participating in any activity at the Academy or participating in any activity organized by the Operator outside of the Academy even if such Losses arise from equipment failure or the Released Parties’ negligence, gross negligence or willful neglect.
+          I, at this moment, PROTECT, DEFEND, HOLD HARMLESS, AND INDEMNIFY each of the Released Parties from and against any claims, actions, causes of action, proceedings, suits, costs, liabilities, damages, and expenses, whether known or unknown (including but not limited to all direct, special, incidental, exemplary and consequential damages, and losses of any kind and lawyer’s fees) based upon, resulting from and relating in any way to my membership at the Academy.
+          Coronavirus Waiver Addendum
+          As an Addendum to the Waiver you have previously signed with us as a member, you agree to and understand the following:
+          By entering this facility, you are aware that you agree to fully accept all known and unknown risks, including the potential risk of exposure to respiratory illnesses such as the coronavirus (COVID-19). The coronavirus is primarily transmitted via exhaled respiratory droplets, most often through coughing and sneezing. These droplets can travel up to six feet and are more commonly shared between persons than from equipment.
+          Although we regularly sanitize our equipment and presently are using enhanced cleaning methods and enforcing social distancing, where possible, in our facility, you understand that you may be exposed to the coronavirus or its symptoms through no fault of your own or your participation in classes.
+          Known coronavirus symptoms include fever, coughing, shortness of breath, pneumonia, kidney failure, and may have other symptoms, stroke, or even death (collectively “Symptoms”).
+          You understand and agree that you will hold us harmless. You will not hold us liable for any actual or perceived Symptoms of COVID-19 or any other disease, illness, or condition, nor for exacerbating any existing symptoms. You fully agree to accept all risks of entering the facility, using the equipment, working with personal trainers, attending classes, and interacting with or being exposed to other members.</p>
+          <br>
+          <div class="after__school__waiver">
+            <h2>After-school pickup Service Policies</h2>
+                <ol>
+                  <li>NO SCHOOL DAYS: All After School Pickup service are held only when schools are in session.
+                    This program does not operate during statutory holidays, professional development days,</li>
+                  <li>SICK DAYS: Parents are to call to advise no after school pickup required (778)235 -8364 and leave a message
+                    before 1pm of the day in</li>
+                  <li>AFTER SCHOOL CARE vs AFTER SCHOOL PROGRAM: We are not a care program. We
+                    are an alternative to daycares. We have a full program that revolves around Brazilian Jiu-
+                    Jitsu (BJJ) and BJJ related activities. We do not provide  snack or books.</li>
+                    <li>PARENTS’ PICK-UP TIME: Parents are expected to pick up their child(ren) at the end of there Jiu-Jitsu class.</li>
+                </ol>
+          </div>
+      </div>
+    </div>
+    <div class="waiver__overlay hidden">
+
+    </div>
+
+    <!-- Modal -->
+  </body>
+</html>
