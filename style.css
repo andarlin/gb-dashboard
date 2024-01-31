@@ -41,7 +41,7 @@ html {
 }
 
 body {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.9;
   font-family: Inter;
@@ -80,37 +80,40 @@ button {
 }
 .dashboard__header {
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: 20px;
+  justify-content: center;
+  margin-bottom: 0px;
+  width: 100%;
 }
 .dashboard__header__title {
-  width: 30%;
+  width: 100%;
+  display: flex; 
 }
-.dashboard__header__title h1 {
-  padding-top: 2rem;
+.dashboard__header__title h1{
+  padding:25px 0 0 0;
 }
+
 .dashboard__daily__quotes {
   width: 70%;
-  padding: 20px;
 }
 .inspirational__quote {
   font-size: 18px;
   font-weight: 500;
+  text-align: center;
 }
 
 .logo-img {
   width: 120px;
   height: auto;
-  margin-right: 100%;
+  margin-right: 20px;
   cursor: pointer;
 }
 .student__count__container {
   display: flex;
   text-align: end;
-  justify-content: space-between;
+  justify-content: end;
   width: auto;
   height: auto;
-  padding: 20px;
+  padding: 10px;
 }
 .add__new__student__button__container {
   width: 100%;
@@ -151,15 +154,17 @@ button {
   text-align: center;
 }
 .student__count__container p {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 500;
 }
 
+.signup-form__button,
 .add__new__student__button,
 .export__button,
 .copy__all__button,
 .monthly__income__button,
-.waiver__button {
+.waiver__button,
+.update-json-file {
   background-color: var(--toggledarkblue);
   border-radius: 10px;
   color: var(--verypaleblue);
@@ -172,6 +177,13 @@ button {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+.signup-form__button{
+  margin-left: 10rem;
+  padding:15px 80px;
+  background: var(--limegreen);
+}
+
 .waiver__button {
   padding: 10px 20px;
   width: 30%;
@@ -191,6 +203,13 @@ button {
   transition: all 0.3s ease;
 }
 
+.update-json-file{
+  margin-top:2rem;
+  padding: 10px 20px;
+  float:right;
+}
+
+.signup-form__button:hover,
 .add__new__student__button:hover,
 .export__button:hover,
 .copy__all__button:hover,
@@ -427,7 +446,7 @@ button {
   cursor: pointer;
 }
 .count__container p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   text-align: center;
   padding-top: 10px;
@@ -568,7 +587,7 @@ button {
 }
 
 .card__container {
-  width: 450px;
+  width: 375px;
   height: auto;
   margin: 10px 20px 10px 0;
   padding: 20px 10px;
@@ -1425,6 +1444,10 @@ button {
 
 @media (max-width: 1500px) {
   .dashboard__add__new__student__container {
-    margin: 2rem;
+    margin: 1rem;
   }
+}
+
+#clock .time span{
+  display: none !important;
 }

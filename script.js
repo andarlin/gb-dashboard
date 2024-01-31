@@ -8,6 +8,7 @@ const tabsContainer = document.querySelector('.tabs__container');
 const tabs = document.querySelectorAll('.tab__container__header__text');
 const tabsContent = document.querySelectorAll('.info__content');
 
+
 //////////////////////////////////////////////////////////////////////////////////
 const firstName = document.querySelector('.first__name__input');
 const lastName = document.querySelector('.last__name__input');
@@ -236,6 +237,7 @@ const dashboard = document.querySelector(
 const customerSignupFormToggle = document.querySelector(
   '.customer__signup__form__toggle'
 );
+const signUpFormButton = document.querySelector('.signup-form__button');
 const customerFormContainerSubmit = document.querySelector(
   '.customer__form__container__submit'
 );
@@ -408,6 +410,15 @@ const optionSaturdayCount2 = document.querySelector(
 const monthlyIncomeTotalCount = document.querySelector(
   '.monthly__income__total__count'
 );
+
+const updateJsonDataButton = document.querySelector('.update-json-file');
+
+
+const littleChampInfoCount = document.querySelector('.little__champ__info_count');
+const juniorChampInofoCount = document.querySelector('.junior__champ__info_count');
+const adultInofoCount = document.querySelector('.adult__info_count');
+const boxingInofoCount = document.querySelector('.boxing__info_count');
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -458,7 +469,7 @@ class App {
     this.modal();
     this.customerFormUpdateModal();
     this.showTime();
-    // this.inspirationalQuoteGenerator();
+    this.inspirationalQuoteGenerator();
     this.darkMode();
     this.displayPerferedPaymentDate();
     this.displayCustomerSignUpForm();
@@ -626,7 +637,7 @@ class App {
     }`;
     optionAdultsCount2.innerHTML = this._optionAdultCount.length + 1;
 
-
+5
 //get optionSaturday local storage 
 const optionSaturdayLocalStorageCount = localStorage.getItem('optionSaturday');
 console.log(optionSaturdayLocalStorageCount)
@@ -737,15 +748,14 @@ console.log(optionSaturdayLocalStorageCount)
                         <div class="student__card__header__tiny">
                         <p>${firstLetter} ${lastLetter}</p>
                         </div>
-                          <div class="card__header">
-                              <p class="textCenter">${userData.jiujitsuProgram}  </p>
-                              <p> <span>Name:</span> <strong>${userData.childName}</strong> </p>
+                          <div class="card__header"> 
+                              <p class="textCenter">${userData.childName}</p>
                               </div>
                               <div class="card__body">
-                              <p> <span>Perfered Schedule:</span> <strong>${userData.childPerferedSchedule}</strong></p>
+        
                               <p><span>Birthday:</span> ${userData.childBirthday}</strong></p>
                               <p><span>Additional Info:</span><strong> ${userData.additionalInfo}</strong></p>
-                              <p> <span>Start date:</span><strong> ${userData.childStartDate}</strong></p>
+                
                               <p><span>After School Program:</span> <strong>${userData.afterSchoolProgram}</strong></p>
                           </div>
                           <div class="color__bar"></div>
@@ -757,8 +767,10 @@ console.log(optionSaturdayLocalStorageCount)
         const tinyChampCount = this._newStudentInfoTinyChamp.push(userData);
 
         //display tiny champ count in tiny champ progress bar fill width
-        progressBarFillTinyChamp.style.width = `${tinyChampCount * 5}%`;
+        progressBarFillTinyChamp.style.width = `${tinyChampCount * 3}%`;
         tinyChampProgressBarCount.innerHTML = `${tinyChampCount} /40`;
+        littleChampInfoCount.innerHTML = `${tinyChampCount} /40`;
+        optionA.innerHTML = `${tinyChampCount}`;
         ////////////////////////////////////////////////////////////////////
       } else if (userData.jiujitsuProgram === 'little_champion') {
         //get child names first letter and store it in firstLetter
@@ -772,14 +784,11 @@ console.log(optionSaturdayLocalStorageCount)
                 <p>${firstLetter} ${lastLetter}</p>
                 </div>
                     <div class="card__header">
-                        <p class="textCenter">${userData.jiujitsuProgram}</p>
-                        <p> <span>Name:</span><strong> ${userData.childName}</strong></p>
+                        <p class="textCenter">${userData.childName}</p>
                         </div>
                         <div class="card__body">
-                        <p> <span>Perfered Schedule:</span><strong> ${userData.childPerferedSchedule}</strong></p>
                         <p><span>Birthday:</span><strong> ${userData.childBirthday}</strong></p>
                         <p><span>Additional Info:</span> <strong>${userData.additionalInfo}</strong></p>
-                        <p> <span>Start date:</span><strong> ${userData.childStartDate}</strong></p>
                         <p><span>After School Program:</span><strong> ${userData.afterSchoolProgram}</strong></p>
                     </div>
                     <div class="color__bar"></div>
@@ -791,8 +800,10 @@ console.log(optionSaturdayLocalStorageCount)
         const littleChampCount = this._newStudentInfoLittleChamp.push(userData);
 
         //display little champ count in little champ progress bar fill width
-        progressBarFillLittleChamp.style.width = `${littleChampCount * 5}%`;
+        progressBarFillLittleChamp.style.width = `${littleChampCount * 3}%`;
         littleChampProgressBarCount.innerHTML = `${littleChampCount} /40`;
+        juniorChampInofoCount.innerHTML = `${littleChampCount} /40`;
+        optionB.innerHTML = `${littleChampCount}`;
         /////////////////////////////////////////////////////////////////////
       } else if (userData.jiujitsuProgram === 'junior_champion') {
         //get child names first letter and store it in firstLetter
@@ -806,8 +817,7 @@ console.log(optionSaturdayLocalStorageCount)
             <p>${firstLetter} ${lastLetter}</p>
             </div>
                 <div class="card__header">
-                    <p class="textCenter">${userData.firstName}</p>
-                    <p> <span>Last Name:</span><strong> ${userData.lastName}</strong></p>
+                    <p class="textCenter">${userData.firstName} ${userData.lastName}</p>
                     <p> <span>Start date:</span><strong> ${userData.childStartDate}</strong></p>
                     </div>
                     <div class="card__body">
@@ -824,8 +834,9 @@ console.log(optionSaturdayLocalStorageCount)
         const juniorChampCount = this._newStudentInfoJuniorChamp.push(userData);
 
         //display junior champ count in junior champ progress bar fill width
-        progressBarFillJuniorChamp.style.width = `${juniorChampCount * 5}%`;
+        progressBarFillJuniorChamp.style.width = `${juniorChampCount * 3}%`;
         juniorChampProgressBarCount.innerHTML = `${juniorChampCount} /40`;
+        adultInofoCount.innerHTML = `${juniorChampCount} /40`;
       } else if ((userData.jiujitsuProgram = 'saturday_champion')) {
         //get child names first letter and store it in firstLetter
         //get child names last name and store it in lastName
@@ -838,13 +849,9 @@ console.log(optionSaturdayLocalStorageCount)
             <p>${firstLetter} ${lastLetter}</p>
             </div>
                 <div class="card__header">
-                    <p class="textCenter">${userData.jiujitsuProgram}</p>
-                    <p> <span>Name:</span><strong> ${userData.childName}</strong></p>
+                    <p class="textCenter">${userData.firstName} ${userData.lastName}</p>
                     </div>
                     <div class="card__body">
-                    <p> <span>Perfered Schedule:</span><strong> ${userData.childPerferedSchedule}</strong></p>
-                    <p><span>Birthday:</span><strong> ${userData.childBirthday}</strong></p>
-                    <p><span>Additional Info:</span><strong> ${userData.additionalInfo}</strong></p>
                     <p> <span>Start date:</span><strong> ${userData.childStartDate}</strong></p>
                 </div>
                 <div class="color__bar"></div>
@@ -857,8 +864,10 @@ console.log(optionSaturdayLocalStorageCount)
           this._newStudentInfoSaturdayChamp.push(userData);
 
         //display saturday champ count in saturday champ progress bar fill width
-        progressBarFillSaturdayChamp.style.width = `${saturdayChampCount * 5}%`;
+        progressBarFillSaturdayChamp.style.width = `${saturdayChampCount * 3}%`;
         saturdayChampProgressBarCount.innerHTML = `${saturdayChampCount} /40`;
+        boxingInofoCount.innerHTML = `${saturdayChampCount} /40`;
+
       }
     });
   }
@@ -1270,7 +1279,7 @@ console.log(optionSaturdayLocalStorageCount)
         <p>${firstLetter} ${lastLetter}</p>
         </div>
         <div class="card__header">
-            <p class="textCenter">${user.jiujitsuProgram}</p>
+            <p class="textCenter">Boxing Program </p>
             <p> <span>Name:</span> ${user.childName}</p>
         </div>
         <div class="card__body">
@@ -1755,7 +1764,7 @@ console.log(optionSaturdayLocalStorageCount)
         this._optionACount.push(user);
 
         //get length of array and display in DOM
-        optionA.innerHTML = this._optionACount.length;
+        // optionA.innerHTML = this._optionACount.length;
 
         monthlyIncome3DaysCount.innerHTML = `$ ${
           this._optionACount.length * this._monthlyFee
@@ -1773,7 +1782,7 @@ console.log(optionSaturdayLocalStorageCount)
         this._optionBCount.push(user);
 
         //get length of array and display in DOM
-        optionB.innerHTML = this._optionBCount.length;
+        // optionB.innerHTML = this._optionBCount.length;
       }
     });
   }
@@ -1812,25 +1821,6 @@ console.log(optionSaturdayLocalStorageCount)
         console.log(err);
       });
 
-    // fetch('https://type.fit/api/quotes')
-    //   .then(function (response) {
-    //     return response.json();
-    //   })
-    //   .then(function (data) {
-    //     //get random quote from array
-    //     const randomQuote = data[Math.floor(Math.random() * data.length)];
-    //     //display quote in dashboard daily quote section
-    //     const quoteHTML = `
-    //     <div class="inspirational__quote">
-    //     <p><i>quote of the day</i></p>
-    //     <p>
-    //       ${randomQuote.text}
-    //     </p>
-    //     <p>- ${randomQuote.author}</p>
-    //   </div>
-    //     `;
-    //     dashboardDailyQuote.insertAdjacentHTML('beforeend', quoteHTML);
-    //   });
   }
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1963,6 +1953,20 @@ console.log(optionSaturdayLocalStorageCount)
         location.reload();
       }
     });
+
+    signUpFormButton.addEventListener('click', e => {
+      e.preventDefault();
+      //toggle display customer signup form and hide dashboard
+      customerSignUpFormContatiner.classList.toggle('hidden');
+      dashboard.classList.toggle('hidden');
+      signUpFormButton.classList.toggle('hidden');
+
+      //if dashboard does not have hidden class reload page
+      if (!dashboard.classList.contains('hidden')) {
+        location.reload();
+      }
+    });
+
   }
   ///////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////
@@ -2039,6 +2043,7 @@ console.log(optionSaturdayLocalStorageCount)
         /////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////
       }
+      
     });
 
     /////////////////////////////////////////////////////////////////////////////
@@ -2569,14 +2574,12 @@ console.log(optionSaturdayLocalStorageCount)
                         <p>${firstLetter} ${lastLetter}</p>
                         </div>
                           <div class="card__header">
-                              <p class="textCenter">${user.jiujitsuProgram}  </p>
+                              <p class="textCenter"> </p>
                               <p> <span>Name:</span> <strong>${user.childName}</strong> </p>
-                              </div>
-                              <div class="card__body">
-                              <p> <span>Perfered Schedule:</span> <strong>${user.childPerferedSchedule}</strong></p>
+                          </div>
+                          <div class="card__body">
                               <p><span>Birthday:</span> ${user.childBirthday}</strong></p>
                               <p><span>Additional Info:</span><strong> ${user.additionalInfo}</strong></p>
-                              <p> <span>Start date:</span><strong> ${user.childStartDate}</strong></p>
                               <p><span>After School Program:</span> <strong>${user.afterSchoolProgram}</strong></p>
                           </div>
                           <div class="color__bar"></div>
@@ -2614,7 +2617,7 @@ console.log(optionSaturdayLocalStorageCount)
   //40) display Saturday class count
   displaySaturdayClassCount(userData) {
     userData.forEach(user => {
-      if (user.childPerferedSchedule === 'Saturday') {
+      if (user.jiujitsuProgram === 'saturday_champion') {
         this._optionSaturdayCount.push(user);
 
         
@@ -2627,5 +2630,6 @@ console.log(optionSaturdayLocalStorageCount)
       localStorage.setItem('optionSaturday', optionSaturday.innerHTML);
       
   }
+
 }
 const app = new App();

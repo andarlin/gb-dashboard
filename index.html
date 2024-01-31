@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- displays site properly based on user's device -->
@@ -19,14 +20,17 @@
   </head>
   <body>
     <div class="customer__header__image__container">  
-      <img class="logo-img customer__signup__form__toggle" src="./images/Official-GB-Lake-country-logo.png" alt="header" />
+      <div class="dashboard__header__title">
+        <img class="logo-img customer__signup__form__toggle" src="./images/Official-GB-Lake-country-logo.png" alt="header" />
+        <h1>Gracie Barra Dashboard</h1>
+      </div>
+      <div class="signup-form__container">
+        <button class="signup-form__button">Sign Up New Student</button>
+      </div>
     </div>
     <!-- GB Student Dashboard -->
     <div class="dashboard__add__new__student__container">
       <div class="dashboard__header">
-        <div class="dashboard__header__title">
-          <h1>Gracie Barra Dashboard</h1>
-        </div>
         <div class="dashboard__daily__quotes">
         </div>
       </div>
@@ -65,24 +69,24 @@
           <p class="after__school">0</p>
         </div>
         <div class="count__container">
-          <p>Monday - Wednesday - Friday</p>
+          <p>Little Champs Count</p>
           <hr />
           <p class="option__a">0</p>
         </div>
         <div class="count__container">
-          <p>Tuesday - Thursday</p>
+          <p>Junior Champs Count</p>
           <hr />
           <p class="option__b">0</p>
         </div>
         <div class="count__container">
-          <p>Saturday</p>
-          <hr />
-          <p class="option__saturday">0</p>
-        </div>
-        <div class="count__container">
-          <p>Adults Program</p>
+          <p>Adults Jiu-Jitsu Program Count</p>
           <hr />
           <p class="option__adults">0</p>
+        </div>
+        <div class="count__container">
+          <p>Adults Boxing Program Count</p>
+          <hr />
+          <p class="option__saturday">0</p>
         </div>
       </div>
       <div class="add__new__student__button__container hidden">
@@ -241,8 +245,8 @@
                     >
                     <select name="Jiu-Jitsu_program" class="gb__select student__program__input gb__input" required >
                       <option value="">Select Program</option>
-                      <option value="tiny_champion">Tiny Champions</option>
-                      <option value="little_champion">Little Champion</option>
+                      <option value="tiny_champion">Little Champions</option>
+                      <option value="little_champion">Junior Champion</option>
                       <option value="junior_champion">
                         Juniors Champion
                       </option>
@@ -375,18 +379,18 @@
       <!--Parent Sign up form ends -->
 
       <!-- Monthly Income Display -->
-      <div class="section__wrapper monthly__income__display  hidden">
+      <div class="section__wrapper monthly__income__display hidden ">
         <div class="displayFlex">
           <section class="section2__container">
-            <div class="grand__opening__deal__container">
+            <div class="grand__opening__deal__container grand__opening__deal__container hidden">
               <p>Grand Opening Deal Income <br> <span>Student count:  <span class="grandOpeningCount">0</span> </span></p>
               <hr/>
               <p class="grand__opening__deal__count">0</p>
             </div>
             <div class="monthly__income__container">
-              <span class="hidden">Student count:  <span class="studentCount">0</span></span></p>
+              <span class="">Student count:  <span class="studentCount">0</span></span></p>
               <p >Monthly Income 
-              <p class="after__school__header">Kids Saturday 1 day a week class count: <span class="option__saturday__count2">0</span></p>
+              <p class="after__school__header hidden">Kids Saturday 1 day a week class count: <span class="option__saturday__count2 ">0</span></p>
               </p>
               <hr/>
               <p class="monthly__income__saturday__count">$ 0</p>
@@ -491,7 +495,7 @@
              <h3>Our goal to reach 120 students by the end of the year</h3>
             </div>
             <div class="text__container">
-              <p>Tiny Champions </br><p class="tiny__champ__progress__bar__count"></p> </p>
+              <p>Little Champions </br><p class="tiny__champ__progress__bar__count"></p> </p>
             </div>
             <div class="progress__bar__program">
               <div class="tiny__champ__bar__fill"></div>
@@ -500,7 +504,7 @@
           </div>
           <div class="progress__bar__program__container">
             <div class="text__container">
-              <p>Little Champions </br> <p class="little__champ__progress__bar__count"></p> </p>
+              <p>Junior Champions </br> <p class="little__champ__progress__bar__count"></p> </p>
             </div>
             <div class="progress__bar__program">
               <div class="little__champ__bar__fill"></div>
@@ -518,7 +522,7 @@
           </div>
           <div class="progress__bar__program__container">
             <div class="text__container">
-              <p>Saturday Jiu-Jitsu Program </br><p class="saturday__champ__progress__bar__count"></p> </p>
+              <p>Boxing Program </br><p class="saturday__champ__progress__bar__count"></p> </p>
             </div>
             <div class="progress__bar__program">
               <div class="saturday__champ__bar__fill"></div>
@@ -544,38 +548,38 @@
             <div class="tab__container__header__text tab4 jsondata__info " data-tab="4">
               <p>data.jason file</p>
             </div>
-            <div class="tab__container__header__text tab5 optionA__info" data-tab="5">
+            <div class="tab__container__header__text tab5 optionA__info hidden" data-tab="5">
               <p>Mon - Wed - Fri</p>
             </div>
-            <div class="tab__container__header__text tab6 optionB__info" data-tab="6">
+            <div class="tab__container__header__text tab6 optionB__info hidden" data-tab="6">
               <p>Tues - Thurs</p>
             </div>
             <div class="tab__container__header__text tab7 optionC__info" data-tab="7">
               <p>Gi Inventory</p>
             </div>
-            <div class="tab__container__header__text tab7 optionC__info" data-tab="8">
+            <div class="tab__container__header__text tab8 optionD__info hidden" data-tab="8">
               <p>Saturday</p>
             </div>
         </div>
 
           <!-- student cards  -->
           <div class="info__content main__info__container--1 contentActive">
-            <h2 class="student__info__title">Tiny Champions</h2>
+            <h2 class="student__info__title">Little Champions <br> <span class="little__champ__info_count">0</span></h2>
             <div class="outter__container">
               <div class="card__row__container tiny__champ__row">
               </div>
             </div>
-            <h2 class="student__info__title">Little Champions</h2>
+            <h2 class="student__info__title">Junior Champions<br> <span class="junior__champ__info_count">0</span> </h2>
             <div class="outter__container">
               <div class="card__row__container little__champ__row">
               </div>
             </div>
-            <h2 class="student__info__title">Adults Jiu-Jitsu Program</h2>
+            <h2 class="student__info__title">Adults Jiu-Jitsu Program <br> <span class="adult__info_count">0</span></h2>
             <div class="outter__container">
               <div class="card__row__container junior__champ__row">
               </div>
             </div>
-            <h2 class="student__info__title">Saturday No-Gi Self-defense</h2>
+            <h2 class="student__info__title">Adults Boxing Program <br> <span class="boxing__info_count">0</span></h2>
             <div class="outter__container">
               <div class="card__row__container saturday__champ__row">
               </div>
@@ -606,6 +610,10 @@
               <div class="card__row__container json__data__row">
                 <input type="text" class="gb__input  json__data__input"/>
                 <button class="copy__all__button">Copy All</button>
+              </div>
+              <div class="update-json-file-container">
+                <h2>Update data.json file</h2>
+                <button class="update-json-file">Update data.json file</button>
               </div>
             </div>
 
@@ -1019,17 +1027,17 @@
                 <div class="form__container">
                   <div class="form__input__container">
                     <label class="form__label" for="student_grade"
-                      >Jiu-Jitsu Program</label
+                      >Program</label
                     >
                     <select name="Jiu-Jitsu_program" class="gb__select student__program__input__customer gb__input" required >
                       <option value="">Select Program</option>
-                      <option value="tiny_champion">Tiny Champions (ages 4 - 6)</option>
-                      <option value="little_champion">Little Champion (ages 7 - 13)</option>
+                      <option value="tiny_champion">Little Champions (ages 4 - 6)</option>
+                      <option value="little_champion">Junior Champion (ages 7 - 13)</option>
                       <option value="junior_champion">
                         Adult Jiu-Jitsu Program (ages 14+)
                       </option>
                       <option value="saturday_champion">
-                        Saturday Jiu-Jitsu Program  (ages 5-13)
+                        Adults Boxing Program  (ages 14+)
                       </option>
                     </select>
                   </div>
@@ -1064,9 +1072,9 @@
                     <p class="">Perfered Schedule</p>
                     <select name="perfered_schedule" class="gb__select  gb__input student__perfered__schedule__input__customer" required >
                       <option value="">Select Schedule</option>
-                      <option value="Monday - Wednesday - Friday">Monday - Wednesday - Friday (3 days a week)</option>
-                      <option value="Tuesday - Thursday - Saturday">Tuesday - Thursday (2 days a week)</option>
-                      <option value="Saturday">Saturday(1 day a week)</option>
+                      <option value="Monday - Wednesday - Friday">3 days week </option>
+                      <option value="Tuesday - Thursday - Saturday">2 days a week</option>
+                      <option value="Saturday">1 day a week</option>
                     </select>
 
                     <!-- <div class="form__input__container__checkbox">
@@ -1093,8 +1101,8 @@
                     >
                     <select name="after_school_pickup" class="gb__select after__school__pickup__input__customer" required >
                       <option value="">Pick-up Option availability</option>
-                      <option value="2-days">2 days a week (Tuesday and Thursday)</option>
-                      <option value="3-days">3 days a week (Monday, Wednesday, and Friday)</option>
+                      <option value="2-days">2 days a week</option>
+                      <option value="3-days">3 days a week</option>
                       <option value="4-days">4 days a week</option>
                       <option value="5-days">5 days a week</option>
                     </select>
@@ -1413,11 +1421,11 @@
                   </div>
                 </div>
                 <div class="form__container">
-                  <div class="form__input__container">
+                  <div class="form__input__container hidden">
                     <label class="form__label" for="student__perfered__schedule"
                       >Perfered Schedule</label
                     >
-                    <select name="student__perfered__schedule" class="gb__select student__perfered__schedule__input__modal " required >
+                    <select name="student__perfered__schedule" class="gb__select student__perfered__schedule__input__modal ">
                       <option value="">Perfered Schedule</option>
                       <option value="Monday - Wednesday - Friday">Monday - Wednesday - Friday </option>
                       <option value="Tuesday - Thursday - Saturday">Tuesday - Thursday</option>
