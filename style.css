@@ -1447,7 +1447,3 @@ button {
     margin: 1rem;
   }
 }
-
-#clock .time span{
-  display: none !important;
-}
