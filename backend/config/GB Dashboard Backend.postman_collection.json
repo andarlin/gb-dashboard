@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "51b00ed5-ea11-4433-ad94-d1ee4d12b3eb",
+		"name": "GB Dashboard Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23157914"
+	},
+	"item": [
+		{
+			"name": "Get Students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"firstName\": \"Johnson\",\r\n        \"lastName\": \"Jonesen\",\r\n        \"email\": \"john.jones@gmail.com\",\r\n        \"phone\": \"234234234\",\r\n        \"address\": \"2134 st\",\r\n        \"emergencyFullName\": \"Johnny Jones\",\r\n        \"emergencyPhone\": \"243234234\",\r\n        \"emergencyRelationship\": \"sista\",\r\n        \"childName\": \"mia\",\r\n        \"childBirthday\": \"2024-02-01\",\r\n        \"jiujitsuProgram\": \"Fighting\",\r\n        \"childStartDate\": \"2024-01-01\",\r\n        \"afterSchoolProgram\": \"More Fighting\",\r\n        \"childPerferedSchedule\": \"all the time\",\r\n        \"creditCardFullName\": \"Johnnythan Jones\",\r\n        \"creditCardNumber\": \"1234432112344321\",\r\n        \"creditCardExpiration\": \"03/2025\",\r\n        \"creditCardCVV\": \"123\",\r\n        \"perferedPaymentDate\": \"1st\",\r\n        \"additionalInfo\": \"I am dangerous!\",\r\n        \"signature\": \"\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/5c1c2461-3b5d-4506-b348-d75dac0d0c0e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"5c1c2461-3b5d-4506-b348-d75dac0d0c0e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"firstName\": \"Johnson\",\r\n        \"lastName\": \"Jonesen\",\r\n        \"email\": \"john.jones@gmail.com\",\r\n        \"phone\": \"234234234\",\r\n        \"address\": \"2134 st\",\r\n        \"emergencyFullName\": \"Johnny Jones\",\r\n        \"emergencyPhone\": \"243234234\",\r\n        \"emergencyRelationship\": \"sista\",\r\n        \"childName\": \"mia\",\r\n        \"childBirthday\": \"2024-02-01\",\r\n        \"jiujitsuProgram\": \"Fighting\",\r\n        \"childStartDate\": \"2024-01-01\",\r\n        \"afterSchoolProgram\": \"More Fighting\",\r\n        \"childPerferedSchedule\": \"all the time\",\r\n        \"creditCardFullName\": \"Johnnythan Jones\",\r\n        \"creditCardNumber\": \"1234432112344321\",\r\n        \"creditCardExpiration\": \"03/2025\",\r\n        \"creditCardCVV\": \"123\",\r\n        \"perferedPaymentDate\": \"1st\",\r\n        \"additionalInfo\": \"I am dangerous!\",\r\n        \"signature\": \"\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/6f3ea462-7cee-4929-9e09-f8497a2ded56",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"6f3ea462-7cee-4929-9e09-f8497a2ded56"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/5c1c2461-3b5d-4506-b348-d75dac0d0c0e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"5c1c2461-3b5d-4506-b348-d75dac0d0c0e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attach IDs to All Students (only necessary to run once)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students-attachIDs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students-attachIDs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

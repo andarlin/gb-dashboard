@@ -16,10 +16,10 @@
 .prettierignore
 node_modules
 dist
+build
 .parcel-cache
 .vscode
 
-data.json
-data-backup.json
-signedupnotpaid.json 
-data-onhold.json
+data*.json
+.env
+signedupnotpaid.json
