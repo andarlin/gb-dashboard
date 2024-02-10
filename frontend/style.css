@@ -86,10 +86,10 @@ button {
 }
 .dashboard__header__title {
   width: 100%;
-  display: flex; 
+  display: flex;
 }
-.dashboard__header__title h1{
-  padding:25px 0 0 0;
+.dashboard__header__title h1 {
+  padding: 25px 0 0 0;
 }
 
 .dashboard__daily__quotes {
@@ -178,9 +178,9 @@ button {
   transition: all 0.3s ease;
 }
 
-.signup-form__button{
+.signup-form__button {
   margin-left: 10rem;
-  padding:15px 80px;
+  padding: 15px 80px;
   background: var(--limegreen);
 }
 
@@ -203,10 +203,10 @@ button {
   transition: all 0.3s ease;
 }
 
-.update-json-file{
-  margin-top:2rem;
+.update-json-file {
+  margin-top: 2rem;
   padding: 10px 20px;
-  float:right;
+  float: right;
 }
 
 .signup-form__button:hover,
@@ -320,7 +320,8 @@ button {
 }
 
 .form__submit,
-.form__update {
+.form__update,
+.form__delete {
   background-color: var(--limegreen);
   border-radius: 10px;
   color: var(--verypaleblue);
@@ -332,6 +333,10 @@ button {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+.form__delete {
+  background-color: red !important;
 }
 
 .enter__btn:hover {

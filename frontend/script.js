@@ -226,6 +226,7 @@ const additionalInfoModal = document.querySelector(
   '.additional__info__input__modal'
 );
 const formUpdate = document.querySelector('.form__update');
+const formDelete = document.querySelector('.form__delete');
 //////////////////////////////////////////////////////////////////////////////////////////
 const afterSchool2Day = document.querySelector('.after__school__2__day');
 const afterSchool3Day = document.querySelector('.after__school__3__day');
@@ -493,6 +494,16 @@ class App {
         }
       }
     );
+
+    formDelete.addEventListener('click', async e => {
+      e.preventDefault();
+      if (confirm(`Are you sure you want to delete ${firstNameModal.value}?`)) {
+        await this.deleteStudentApi(idModal.value);
+        alert(`${firstNameModal.value} deleted successfully`);
+        location.reload();
+      }
+    });
+
     this.refreshAppDataUsers();
     this.addNewStudentActive();
     this.tabs();
@@ -1582,6 +1593,7 @@ class App {
       signaturePad2.remove();
     });
   }
+
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //19) Export User Data to CSV
@@ -2157,6 +2169,31 @@ class App {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
+      };
+      const response = await fetch(apiUrl, requestOptions);
+      if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+      }
+
+      return await response.json();
+    } catch (err) {
+      console.error(
+        `An error has occured while fetching students from the server.`,
+        err
+      );
+    }
+  }
+
+  async deleteStudentApi(studentId) {
+    try {
+      const apiUrl = `http://localhost:3000/students/${studentId}`;
+
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       };
       const response = await fetch(apiUrl, requestOptions);
       if (!response.ok) {
