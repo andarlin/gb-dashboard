@@ -101,7 +101,7 @@
       <!--Parent Sign up form -->
       <div class="section__container hidden">
         <section class="section1">
-          <div clas="add__new__student__container">
+          <div>
             <h1>Step 1: Parent's Info</h1>
             <hr/>
             <form class="form">
@@ -887,7 +887,7 @@
         <h1>GB Lake Country Parents Registration Form  </h1>
       </div>
       <div class="customer__signup__form">
-        <div clas="add__new__student__container">
+        <div>
           
           <!-- congrats for signing up -->
           <div class="congrats__container hidden">
@@ -1270,11 +1270,16 @@
         <div class="modal__body">
           
 
-          <div clas="add__new__student__container">
+          <div>
             <h1>Step 1: Parent's Info</h1>
             <hr/>
             <form class="form">
-
+              <input
+                  type="hidden"
+                  name="id"
+                  class="id__input__modal gb__input "
+                  required
+                />
               <!-- Step 1 Parents Info -->
               <div class="column1">
                 <div class="form__container">
@@ -1285,7 +1290,7 @@
                     <input
                       type="text"
                       name="first_name"
-                      placeholder="Frist Name"
+                      placeholder="First Name"
                       class="first__name__input__modal gb__input "
                       required
                     />
@@ -1469,8 +1474,15 @@
               <!-- step 4 signature wavier -->
               <h2 class="customer__h2">Signature Waiver</h2>
               <h3 class="waiver__header">Waiver / Liability & After-school pickup service</h3>
-              <hr/>
               <div class="form__group">
+                <label style="padding-right:10px;" for="studentUpdateForm_updateWaiverSignatureCheckbox">Update Waiver Signature?</label>
+                <input id="studentUpdateForm_updateWaiverSignatureCheckbox" type="checkbox">
+              </div>
+              <hr/>
+              <div>
+                <img id="existingSignatureImage" src="" width="495" height="150">
+              </div>
+              <div id="signature-pad2-waiver-container" class="form__group hidden">
                 <div class="form__container ">
                   <div class="form__input__container signature__container ">
                     <label class="form__label" for="signature"
@@ -1595,6 +1607,9 @@
                 <hr/>
                 <div class="form__container column-width20">
                   <button class="form__update">Update</button>
+                </div>
+                <div class="form__container column-width20">
+                  <button type="button" class="form__delete">Delete</button>
                 </div>
               </section>
             </form>

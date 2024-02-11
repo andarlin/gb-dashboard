@@ -8,7 +8,6 @@ const tabsContainer = document.querySelector('.tabs__container');
 const tabs = document.querySelectorAll('.tab__container__header__text');
 const tabsContent = document.querySelectorAll('.info__content');
 
-
 //////////////////////////////////////////////////////////////////////////////////
 const firstName = document.querySelector('.first__name__input');
 const lastName = document.querySelector('.last__name__input');
@@ -166,11 +165,21 @@ const fifteenthOfTheMonth = document.querySelector(
 );
 
 //////////////////////////////////////////////////////////////////////////////////////////
+const idModal = document.querySelector('.id__input__modal');
 const firstNameModal = document.querySelector('.first__name__input__modal');
 const lastNameModal = document.querySelector('.last__name__input__modal');
 const emailModal = document.querySelector('.email__input__modal');
 const phoneModal = document.querySelector('.phone__input__modal');
 const addressModal = document.querySelector('.address__input__modal');
+const studentUpdateForm_updateWaiverSignatureCheckbox = document.getElementById(
+  'studentUpdateForm_updateWaiverSignatureCheckbox'
+);
+const studentUpdateForm_signaturepad2WaiverContainer = document.getElementById(
+  'signature-pad2-waiver-container'
+);
+const studentUpdateForm_existingSignatureImage = document.getElementById(
+  'existingSignatureImage'
+);
 const waiverModal = document.querySelector('.waiver__input__modal');
 const emergencyFullNameModal = document.querySelector(
   '.emergency__full__name__input__modal'
@@ -217,6 +226,7 @@ const additionalInfoModal = document.querySelector(
   '.additional__info__input__modal'
 );
 const formUpdate = document.querySelector('.form__update');
+const formDelete = document.querySelector('.form__delete');
 //////////////////////////////////////////////////////////////////////////////////////////
 const afterSchool2Day = document.querySelector('.after__school__2__day');
 const afterSchool3Day = document.querySelector('.after__school__3__day');
@@ -413,9 +423,12 @@ const monthlyIncomeTotalCount = document.querySelector(
 
 const updateJsonDataButton = document.querySelector('.update-json-file');
 
-
-const littleChampInfoCount = document.querySelector('.little__champ__info_count');
-const juniorChampInofoCount = document.querySelector('.junior__champ__info_count');
+const littleChampInfoCount = document.querySelector(
+  '.little__champ__info_count'
+);
+const juniorChampInofoCount = document.querySelector(
+  '.junior__champ__info_count'
+);
 const adultInofoCount = document.querySelector('.adult__info_count');
 const boxingInofoCount = document.querySelector('.boxing__info_count');
 
@@ -463,7 +476,35 @@ class App {
   constructor() {
     //clear local storage
     // localStorage.clear();
-    this.getUserData();
+    this.initializeListeners();
+    studentUpdateForm_updateWaiverSignatureCheckbox.addEventListener(
+      'click',
+      event => {
+        console.log('event: ', event);
+        if (event.target.checked == true) {
+          studentUpdateForm_signaturepad2WaiverContainer.classList.remove(
+            'hidden'
+          );
+          studentUpdateForm_existingSignatureImage.classList.add('hidden');
+        } else {
+          studentUpdateForm_signaturepad2WaiverContainer.classList.add(
+            'hidden'
+          );
+          studentUpdateForm_existingSignatureImage.classList.remove('hidden');
+        }
+      }
+    );
+
+    formDelete.addEventListener('click', async e => {
+      e.preventDefault();
+      if (confirm(`Are you sure you want to delete ${firstNameModal.value}?`)) {
+        await this.deleteStudentApi(idModal.value);
+        alert(`${firstNameModal.value} deleted successfully`);
+        location.reload();
+      }
+    });
+
+    this.refreshAppDataUsers();
     this.addNewStudentActive();
     this.tabs();
     this.modal();
@@ -488,68 +529,35 @@ class App {
     );
   }
 
+  async initializeListeners() {
+    this.formSubmit();
+    this.displaySaturdayChampModal();
+    this.displayLittleChampModal();
+    this.displayTinyChampModal();
+    this.displayJuniorChampModal();
+    this.displayJsonData();
+    this.exportUserData();
+  }
+
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //1) Fetch data from data.json and local storage user data2
-  getUserData() {
-    fetch('data.json')
+  async refreshAppDataUsers() {
+    fetch('http://localhost:3000/students')
       .then(response => response.json())
       .then(data => {
-        const localStorageData = JSON.stringify(data);
+        this._userData = data;
+        this._userIndex = data.length;
 
-        //use map method to loop through local storage data and store it in _userData
-        const studentData = JSON.parse(localStorageData).map(student => {
-          //return student info
-          return {
-            firstName: student.firstName,
-            lastName: student.lastName,
-            email: student.email,
-            phone: student.phone,
-            address: student.address,
-            emergencyFullName: student.emergencyFullName,
-            emergencyPhone: student.emergencyPhone,
-            emergencyRelationship: student.emergencyRelationship,
-            childName: student.childName,
-            childBirthday: student.childBirthday,
-            jiujitsuProgram: student.jiujitsuProgram,
-            childStartDate: student.childStartDate,
-            afterSchoolProgram: student.afterSchoolProgram,
-            childPerferedSchedule: student.childPerferedSchedule,
-            creditCardFullName: student.creditCardFullName,
-            creditCardNumber: student.creditCardNumber,
-            creditCardExpiration: student.creditCardExpiration,
-            creditCardCVV: student.creditCardCVV,
-            perferedPaymentDate: student.perferedPaymentDate,
-            additionalInfo: student.additionalInfo,
-            signature: student.signature,
-          };
-        });
-
-        localStorage.setItem('userData', JSON.stringify(studentData));
-
-        //if local storage userData2 is empty, then get userdata from data.json file and store it in local storage
-        if (localStorage.getItem('userData2') !== null) {
-          this._userData = JSON.parse(localStorage.getItem('userData2'));
-          this._userIndex = this._userData.length;
-        } else {
-          this._userData = JSON.parse(localStorage.getItem('userData'));
-          this._userIndex = this._userData.length;
-        }
-
-        this.formSubmit(this._userData);
         this.displayafterSchoolPickupCount(this._userData);
         this.displayStudentInfo(this._userData);
         this.displayParentsInfo(this._userData);
         this.displayCreditCardInfo(this._userData);
-        this.displayJsonData(this._userData);
-        this.displayJuniorChampModal(this._userData);
-        this.displayTinyChampModal(this._userData);
-        this.displayLittleChampModal(this._userData);
-        this.displaySaturdayChampModal(this._userData);
+
         this.displayOptionA(this._userData);
         this.displayOptionB(this._userData);
         this.displayOptionC(this._userData);
-        this.exportUserData(this._userData);
+
         this.displayOptionACount(this._userData);
         this.displayOptionBCount(this._userData);
         this.displayCountAdults(this._userData);
@@ -630,17 +638,16 @@ class App {
       }
     });
 
-
     //display option adult count in html
     monthlyIncomeAdultsCount.innerHTML = `$ ${
       this._optionAdultCount.length + 1 * this._monthlyFee
     }`;
     optionAdultsCount2.innerHTML = this._optionAdultCount.length + 1;
 
-5
-//get optionSaturday local storage 
-const optionSaturdayLocalStorageCount = localStorage.getItem('optionSaturday');
-console.log(optionSaturdayLocalStorageCount)
+    //get optionSaturday local storage
+    const optionSaturdayLocalStorageCount =
+      localStorage.getItem('optionSaturday');
+    console.log(optionSaturdayLocalStorageCount);
 
     //display option saturday count in html
     monthlyIncomeSaturdayCount.innerHTML = `$ ${
@@ -660,15 +667,14 @@ console.log(optionSaturdayLocalStorageCount)
     }`;
     option3daysCount2.innerHTML = this._option3daysCount.length;
 
-    console.log(this._option3daysCount)
+    console.log(this._option3daysCount);
 
     // const monthlyTotalIcomeCombined = userDataLength * this._monthlyFee;
-
 
     //display monthly icome count total in html
 
     const monthlyTotalIcomeCombined =
-    optionSaturdayLocalStorageCount * this._monthlyFeeSaturday +
+      optionSaturdayLocalStorageCount * this._monthlyFeeSaturday +
       this._option2daysCount.length * this._monthlyFee2Days +
       this._option3daysCount.length * this._monthlyFee +
       this._optionAdultCount.length * this._monthlyFee;
@@ -736,27 +742,27 @@ console.log(optionSaturdayLocalStorageCount)
   displayStudentInfo(userData) {
     //check if user data in local storage jiujitsuProgram is equal to tiny_champion
 
-    userData.forEach((userData, index) => {
-      if (userData.jiujitsuProgram === 'tiny_champion') {
+    userData.forEach((studentData, index) => {
+      if (studentData.jiujitsuProgram === 'tiny_champion') {
         //get child names first letter and store it in firstLetter
         //get child names last name and store it in lastName
-        const firstLetter = userData.childName.charAt(0);
-        const lastLetter = userData.lastName.charAt(0);
+        const firstLetter = studentData.childName.charAt(0);
+        const lastLetter = studentData.lastName.charAt(0);
 
         const tinyChampHTML = `
-                      <div id="tiny${index}" class="card__container tiny_champion">  
+                      <div id="tiny${index}" data-id="${studentData.id}" class="card__container tiny_champion">  
                         <div class="student__card__header__tiny">
                         <p>${firstLetter} ${lastLetter}</p>
                         </div>
                           <div class="card__header"> 
-                              <p class="textCenter">${userData.childName}</p>
+                              <p class="textCenter">${studentData.childName}</p>
                               </div>
                               <div class="card__body">
         
-                              <p><span>Birthday:</span> ${userData.childBirthday}</strong></p>
-                              <p><span>Additional Info:</span><strong> ${userData.additionalInfo}</strong></p>
+                              <p><span>Birthday:</span> ${studentData.childBirthday}</strong></p>
+                              <p><span>Additional Info:</span><strong> ${studentData.additionalInfo}</strong></p>
                 
-                              <p><span>After School Program:</span> <strong>${userData.afterSchoolProgram}</strong></p>
+                              <p><span>After School Program:</span> <strong>${studentData.afterSchoolProgram}</strong></p>
                           </div>
                           <div class="color__bar"></div>
                       </div>
@@ -764,7 +770,7 @@ console.log(optionSaturdayLocalStorageCount)
         tinyChampRow.insertAdjacentHTML('beforeend', tinyChampHTML);
 
         //push user data into newStudentInfoTinyChamp array
-        const tinyChampCount = this._newStudentInfoTinyChamp.push(userData);
+        const tinyChampCount = this._newStudentInfoTinyChamp.push(studentData);
 
         //display tiny champ count in tiny champ progress bar fill width
         progressBarFillTinyChamp.style.width = `${tinyChampCount * 3}%`;
@@ -772,24 +778,24 @@ console.log(optionSaturdayLocalStorageCount)
         littleChampInfoCount.innerHTML = `${tinyChampCount} /40`;
         optionA.innerHTML = `${tinyChampCount}`;
         ////////////////////////////////////////////////////////////////////
-      } else if (userData.jiujitsuProgram === 'little_champion') {
+      } else if (studentData.jiujitsuProgram === 'little_champion') {
         //get child names first letter and store it in firstLetter
         //get child names last name and store it in lastName
-        const firstLetter = userData.childName.charAt(0);
-        const lastLetter = userData.lastName.charAt(0);
+        const firstLetter = studentData.childName.charAt(0);
+        const lastLetter = studentData.lastName.charAt(0);
 
         const littleChampHTML = `
-                <div id="little${index}" class="card__container little_champion">
+                <div id="little${index}" data-id="${studentData.id}" class="card__container little_champion">
                 <div class="student__card__header__little">
                 <p>${firstLetter} ${lastLetter}</p>
                 </div>
                     <div class="card__header">
-                        <p class="textCenter">${userData.childName}</p>
+                        <p class="textCenter">${studentData.childName}</p>
                         </div>
                         <div class="card__body">
-                        <p><span>Birthday:</span><strong> ${userData.childBirthday}</strong></p>
-                        <p><span>Additional Info:</span> <strong>${userData.additionalInfo}</strong></p>
-                        <p><span>After School Program:</span><strong> ${userData.afterSchoolProgram}</strong></p>
+                        <p><span>Birthday:</span><strong> ${studentData.childBirthday}</strong></p>
+                        <p><span>Additional Info:</span> <strong>${studentData.additionalInfo}</strong></p>
+                        <p><span>After School Program:</span><strong> ${studentData.afterSchoolProgram}</strong></p>
                     </div>
                     <div class="color__bar"></div>
                 </div>
@@ -797,7 +803,8 @@ console.log(optionSaturdayLocalStorageCount)
         littleChampRow.insertAdjacentHTML('beforeend', littleChampHTML);
 
         //push user data into newStudentInfoLittleChamp array
-        const littleChampCount = this._newStudentInfoLittleChamp.push(userData);
+        const littleChampCount =
+          this._newStudentInfoLittleChamp.push(studentData);
 
         //display little champ count in little champ progress bar fill width
         progressBarFillLittleChamp.style.width = `${littleChampCount * 3}%`;
@@ -805,25 +812,25 @@ console.log(optionSaturdayLocalStorageCount)
         juniorChampInofoCount.innerHTML = `${littleChampCount} /40`;
         optionB.innerHTML = `${littleChampCount}`;
         /////////////////////////////////////////////////////////////////////
-      } else if (userData.jiujitsuProgram === 'junior_champion') {
+      } else if (studentData.jiujitsuProgram === 'junior_champion') {
         //get child names first letter and store it in firstLetter
         //get child names last name and store it in lastName
-        const firstLetter = userData.firstName.charAt(0);
-        const lastLetter = userData.lastName.charAt(0);
+        const firstLetter = studentData.firstName.charAt(0);
+        const lastLetter = studentData.lastName.charAt(0);
 
         const juniorChampHTML = `
-            <div id="junior${index}" class="card__container junior_champion">
+            <div id="junior${index}" data-id="${studentData.id}" class="card__container junior_champion">
             <div class="student__card__header__junior">
             <p>${firstLetter} ${lastLetter}</p>
             </div>
                 <div class="card__header">
-                    <p class="textCenter">${userData.firstName} ${userData.lastName}</p>
-                    <p> <span>Start date:</span><strong> ${userData.childStartDate}</strong></p>
+                    <p class="textCenter">${studentData.firstName} ${studentData.lastName}</p>
+                    <p> <span>Start date:</span><strong> ${studentData.childStartDate}</strong></p>
                     </div>
                     <div class="card__body">
                     <p><b>Waiver Signature</b></p>
                     <hr/>
-                    <img src="${userData.signature}"  alt="signature" width="auto" height="50" />
+                    <img src="${studentData.signature}"  alt="signature" width="auto" height="50" />
                 </div>
                 <div class="color__bar"></div>
             </div>
@@ -831,28 +838,29 @@ console.log(optionSaturdayLocalStorageCount)
         juniorChampRow.insertAdjacentHTML('beforeend', juniorChampHTML);
 
         //push user data into newStudentInfoJuniorChamp array
-        const juniorChampCount = this._newStudentInfoJuniorChamp.push(userData);
+        const juniorChampCount =
+          this._newStudentInfoJuniorChamp.push(studentData);
 
         //display junior champ count in junior champ progress bar fill width
         progressBarFillJuniorChamp.style.width = `${juniorChampCount * 3}%`;
         juniorChampProgressBarCount.innerHTML = `${juniorChampCount} /40`;
         adultInofoCount.innerHTML = `${juniorChampCount} /40`;
-      } else if ((userData.jiujitsuProgram = 'saturday_champion')) {
+      } else if ((studentData.jiujitsuProgram = 'saturday_champion')) {
         //get child names first letter and store it in firstLetter
         //get child names last name and store it in lastName
-        const firstLetter = userData.childName.charAt(0);
-        const lastLetter = userData.lastName.charAt(0);
+        const firstLetter = studentData.childName.charAt(0);
+        const lastLetter = studentData.lastName.charAt(0);
 
         const saturdayChampHTML = `
-            <div id="saturday${index}" class="card__container saturday_champion">
+            <div id="saturday${index}" data-id="${studentData.id}" class="card__container saturday_champion">
             <div class="student__card__header__saturday">
             <p>${firstLetter} ${lastLetter}</p>
             </div>
                 <div class="card__header">
-                    <p class="textCenter">${userData.firstName} ${userData.lastName}</p>
+                    <p class="textCenter">${studentData.firstName} ${studentData.lastName}</p>
                     </div>
                     <div class="card__body">
-                    <p> <span>Start date:</span><strong> ${userData.childStartDate}</strong></p>
+                    <p> <span>Start date:</span><strong> ${studentData.childStartDate}</strong></p>
                 </div>
                 <div class="color__bar"></div>
             </div>
@@ -861,13 +869,12 @@ console.log(optionSaturdayLocalStorageCount)
 
         //push user data into newStudentInfoSaturdayChamp array
         const saturdayChampCount =
-          this._newStudentInfoSaturdayChamp.push(userData);
+          this._newStudentInfoSaturdayChamp.push(studentData);
 
         //display saturday champ count in saturday champ progress bar fill width
         progressBarFillSaturdayChamp.style.width = `${saturdayChampCount * 3}%`;
         saturdayChampProgressBarCount.innerHTML = `${saturdayChampCount} /40`;
         boxingInofoCount.innerHTML = `${saturdayChampCount} /40`;
-
       }
     });
   }
@@ -950,60 +957,18 @@ console.log(optionSaturdayLocalStorageCount)
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //6) Display as Json Data
-  displayJsonData(userData) {
-    //convert userData to stringify
-    const jsonData = JSON.stringify(userData);
-
-    //insert json data into the json data input field
-    jasonDataInput.value = jsonData;
-
-    //display json data in the DOM
-    // jsonDataRow.insertAdjacentHTML('beforeend', jsonData);
-
-    //select json data input field on click
+  displayJsonData() {
     copyAllButton.addEventListener('click', event => {
       event.preventDefault();
       jasonDataInput.select();
       //copy json data input field to clipboard
-      navigator.clipboard.writeText(jasonDataInput.value);
+      navigator.clipboard.writeText(JSON.stringify(this._userData));
     });
-
-    // userData.forEach(data => {
-    //   const jsonDataHTML = `
-    //       <div class="json__card__container">
-    //       <div class="card__header">
-    //         {
-    //           "firstName": " ${data.firstName}",
-    //           "lastName": " ${data.lastName}",
-    //           "email": " ${data.email}",
-    //           "phone": " ${data.phone}",
-    //           "address": " ${data.address}",
-    //           "emergencyFullName": " ${data.emergencyFullName}",
-    //           "emergencyPhone": " ${data.emergencyPhone}",
-    //           "emergencyRelationship": " ${data.emergencyRelationship}",
-    //           "childName": " ${data.childName}",
-    //           "childBirthday": " ${data.childBirthday}",
-    //           "jiujitsuProgram": " ${data.jiujitsuProgram}",
-    //           "childPerferedSchedule": " ${data.childPerferedSchedule}",
-    //           "childStartDate": " ${data.date}",
-    //           "creditCardFullName": " ${data.creditCardFullName}",
-    //           "creditCardNumber": " ${data.creditCardNumber}",
-    //           "creditCardExpiration": " ${data.creditCardExpiration}",
-    //           "creditCardCVV": " ${data.creditCardCVV}",
-    //           "afterSchoolProgram": " ${data.afterSchoolProgram}",
-    //           "perferedPaymentDate": " ${data.perferedPaymentDate}",
-    //           "additionalInfo": " ${data.additionalInfo}",
-    //         },
-    //       </div>
-    //     </div>
-    //   `;
-    //   jsonDataRow.insertAdjacentHTML('beforeend', jsonDataHTML);
-    // });
   }
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //7) Display Tiny Champions Modal Info
-  displayTinyChampModal(userData) {
+  displayTinyChampModal() {
     //add event listener to tiny champ card and display tiny champ info when clicked
     tinyChampRow.addEventListener('click', e => {
       const clicked = e.target.closest('.tiny_champion');
@@ -1011,14 +976,15 @@ console.log(optionSaturdayLocalStorageCount)
       //Guard clause
       if (!clicked) return;
 
-      //get index of clicked tiny champ card last number
-      const index = JSON.parse(clicked.id.split('tiny').slice(-1));
+      const selectedStudentId = clicked.getAttribute('data-id');
+      const tinyChampData = this._userData.find(
+        student => student.id == selectedStudentId
+      );
 
-      //get tiny champ info from newStudentInfoTinyChamp array
-      const tinyChampInfo = userData[index];
+      console.log('tinyChampData: ', tinyChampData);
 
       //display tiny champ info in modal
-      this.userModalUpdate(tinyChampInfo);
+      this.userModalUpdate(tinyChampData);
 
       //display tiny champ info in tiny champ info modal
       this.modalFunctionalUtillity();
@@ -1027,7 +993,7 @@ console.log(optionSaturdayLocalStorageCount)
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //8) Display Little Champions Modal Info
-  displayLittleChampModal(userData) {
+  displayLittleChampModal() {
     //add event listener to little champ card and display little champ info when clicked
     littleChampRow.addEventListener('click', e => {
       const clicked = e.target.closest('.little_champion');
@@ -1035,11 +1001,10 @@ console.log(optionSaturdayLocalStorageCount)
       //Guard clause
       if (!clicked) return;
 
-      //get index of clicked little champ card last number
-      const index = JSON.parse(clicked.id.split('little').slice(-1));
-
-      //get little champ info from newStudentInfoLittleChamp array
-      const littleChampInfo = userData[index];
+      const selectedStudentId = clicked.getAttribute('data-id');
+      const littleChampInfo = this._userData.find(
+        student => student.id == selectedStudentId
+      );
 
       //display little champ info in modal
       this.userModalUpdate(littleChampInfo);
@@ -1051,7 +1016,7 @@ console.log(optionSaturdayLocalStorageCount)
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //9) Display Junior Champions Modal Info
-  displayJuniorChampModal(userData) {
+  displayJuniorChampModal() {
     //add event listener to junior champ card and display junior champ info when clicked
     juniorChampRow.addEventListener('click', e => {
       const clicked = e.target.closest('.junior_champion');
@@ -1059,11 +1024,10 @@ console.log(optionSaturdayLocalStorageCount)
       //Guard clause
       if (!clicked) return;
 
-      //get index of clicked junior champ card last number
-      const index = JSON.parse(clicked.id.split('junior').slice(-1));
-
-      //get junior champ info from newStudentInfoJuniorChamp array
-      const juniorChampInfo = userData[index];
+      const selectedStudentId = clicked.getAttribute('data-id');
+      const juniorChampInfo = this._userData.find(
+        student => student.id == selectedStudentId
+      );
 
       //display junior champ info in modal
       this.userModalUpdate(juniorChampInfo);
@@ -1075,7 +1039,7 @@ console.log(optionSaturdayLocalStorageCount)
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //9.5) Display Saturday Champions Modal Info
-  displaySaturdayChampModal(userData) {
+  displaySaturdayChampModal() {
     //add event listener to saturday champ card and display saturday champ info when clicked
     saturdayChampRow.addEventListener('click', e => {
       const clicked = e.target.closest('.saturday_champion');
@@ -1083,11 +1047,10 @@ console.log(optionSaturdayLocalStorageCount)
       //Guard clause
       if (!clicked) return;
 
-      //get index of clicked saturday champ card last number
-      const index = JSON.parse(clicked.id.split('saturday').slice(-1));
-
-      //get saturday champ info from newStudentInfoSaturdayChamp array
-      const saturdayChampInfo = userData[index];
+      const selectedStudentId = clicked.getAttribute('data-id');
+      const saturdayChampInfo = this._userData.find(
+        student => student.id == selectedStudentId
+      );
 
       //display saturday champ info in modal
       this.userModalUpdate(saturdayChampInfo);
@@ -1112,7 +1075,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram === 'tiny_champion'
       ) {
         const optionAHTML = `
-        <div id="tiny${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="tiny${index}" data-id="${user.id}"  class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__tiny">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1134,7 +1097,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram === 'little_champion'
       ) {
         const optionAHTML = `
-        <div id="little${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="little${index}" data-id="${user.id}" class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__little">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1156,7 +1119,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram === 'junior_champion'
       ) {
         const optionAHTML = `
-        <div id="junior${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="junior${index}" data-id="${user.id}" class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__junior">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1194,7 +1157,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram === 'tiny_champion'
       ) {
         const optionBHTML = `
-        <div id="tiny${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="tiny${index}" data-id="${user.id}"  class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__tiny">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1216,7 +1179,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram === 'little_champion'
       ) {
         const optionBHTML = `
-        <div id="little${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="little${index}" data-id="${user.id}" class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__little">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1238,7 +1201,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram === 'junior_champion'
       ) {
         const optionBHTML = `
-        <div id="junior${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="junior${index}" data-id="${user.id}" class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__junior">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1274,7 +1237,7 @@ console.log(optionSaturdayLocalStorageCount)
         user.jiujitsuProgram == 'saturday_champion'
       ) {
         const optionCHTML = `
-        <div id="tiny${index}" class="card__container ${user.jiujitsuProgram}">
+        <div id="tiny${index}" data-id="${user.id}"  class="card__container ${user.jiujitsuProgram}">
         <div class="student__card__header__tiny">
         <p>${firstLetter} ${lastLetter}</p>
         </div>
@@ -1293,7 +1256,7 @@ console.log(optionSaturdayLocalStorageCount)
         saturdayChampRow3.insertAdjacentHTML('beforeend', optionCHTML);
       } else if (user.childPerferedSchedule === 'Saturday') {
         const optionCHTML = `
-            <div id="little${index}" class="card__container ${user.jiujitsuProgram}">
+            <div id="little${index}" data-id="${user.id}" class="card__container ${user.jiujitsuProgram}">
             <div class="student__card__header__little">
             <p>${firstLetter} ${lastLetter}</p>
             </div>
@@ -1472,6 +1435,7 @@ console.log(optionSaturdayLocalStorageCount)
   //16) Get user data for Student Info Modal
   userModalUpdate(studentInfo) {
     //set value for modal input fields
+    idModal.value = studentInfo.id;
     firstNameModal.value = studentInfo.firstName;
     lastNameModal.value = studentInfo.lastName;
     emailModal.value = studentInfo.email;
@@ -1493,7 +1457,10 @@ console.log(optionSaturdayLocalStorageCount)
     creditCardCVVModal.value = studentInfo.creditCardCVV;
     perferedPaymentDateModal.value = studentInfo.perferedPaymentDate;
     additionalInfoModal.value = studentInfo.additionalInfo;
-    signaturePad.value = studentInfo.signaturePad;
+    studentUpdateForm_existingSignatureImage.setAttribute(
+      'src',
+      studentInfo.signature
+    );
   }
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1533,7 +1500,7 @@ console.log(optionSaturdayLocalStorageCount)
   ///////////////////////////////////////////////////////////////////////////////////////////
   //18) Student Info Modal display Form Edit ****FORM UPDATE****
   customerFormUpdateModal() {
-    formUpdate.addEventListener('click', e => {
+    formUpdate.addEventListener('click', async e => {
       e.preventDefault();
       //get todays date
       const today = new Date();
@@ -1547,102 +1514,50 @@ console.log(optionSaturdayLocalStorageCount)
       image.style.display = 'block';
       form.appendChild(image);
 
-      //get value from input fields
-      const firstNameValue = firstNameModal.value;
-      const lastNameValue = lastNameModal.value;
-      const emailValue = emailModal.value;
-      const phoneValue = phoneModal.value;
-      const addressValue = addressModal.value;
-      const emergencyFullNameValue = emergencyFullNameModal.value;
-      const emergencyPhoneValue = emergencyPhoneModal.value;
-      const emergencyRelationshipValue = emergencyRelationshipModal.value;
-      const childNameValue = childNameModal.value;
-      const childBirthdayValue = childBirthdayModal.value;
-      const jiujitsuProgramValue = jiujitsuProgramModal.value;
-      const childStartDateValue = childStartDateModal.value;
-      const childPerferedScheduleValue = childPerferedScheduleModal.value;
-      const afterSchoolProgramValue = afterSchoolProgramModal.value;
-      const creditCardFullNameValue = creditCardFullNameModal.value;
-      const creditCardNumberValue = creditCardNumberModal.value;
-      const creditCardExpirationValue = creditCardExpirationModal.value;
-      const creditCardCVVValue = creditCardCVVModal.value;
-      const perferedPaymentDateValue = perferedPaymentDateModal.value;
-      const additionalInfoValue = additionalInfoModal.value;
-      const signatureValue = image.src;
+      //studentUpdateForm_updateWaiverSignatureCheckbox
+      const oldStudentInfo = this._userData.find(
+        studentInfo => studentInfo.id == idModal.value
+      );
 
-      //create new customer object
-      const newCustomer = {
-        firstName: firstNameValue,
-        lastName: lastNameValue,
-        email: emailValue,
-        phone: phoneValue,
-        address: addressValue,
-        emergencyFullName: emergencyFullNameValue,
-        emergencyPhone: emergencyPhoneValue,
-        emergencyRelationship: emergencyRelationshipValue,
-        childName: childNameValue,
-        childBirthday: childBirthdayValue,
-        jiujitsuProgram: jiujitsuProgramValue,
-        childStartDate: childStartDateValue,
-        childPerferedSchedule: childPerferedScheduleValue,
-        afterSchoolProgram: afterSchoolProgramValue,
-        creditCardFullName: creditCardFullNameValue,
-        creditCardNumber: creditCardNumberValue,
-        creditCardExpiration: creditCardExpirationValue,
-        creditCardCVV: creditCardCVVValue,
-        perferedPaymentDate: perferedPaymentDateValue,
-        additionalInfo: additionalInfoValue,
-        signature: signatureValue,
+      const student = {
+        id: idModal.value,
+        firstName: firstNameModal.value,
+        lastName: lastNameModal.value,
+        email: emailModal.value,
+        phone: phoneModal.value,
+        address: addressModal.value,
+        emergencyFullName: emergencyFullNameModal.value,
+        emergencyPhone: emergencyPhoneModal.value,
+        emergencyRelationship: emergencyRelationshipModal.value,
+        childName: childNameModal.value,
+        childBirthday: childBirthdayModal.value,
+        jiujitsuProgram: jiujitsuProgramModal.value,
+        childStartDate: childStartDateModal.value,
+        childPerferedSchedule: childPerferedScheduleModal.value,
+        afterSchoolProgram: afterSchoolProgramModal.value,
+        creditCardFullName: creditCardFullNameModal.value,
+        creditCardNumber: creditCardNumberModal.value,
+        creditCardExpiration: creditCardExpirationModal.value,
+        creditCardCVV: creditCardCVVModal.value,
+        perferedPaymentDate: perferedPaymentDateModal.value,
+        additionalInfo: additionalInfoModal.value,
+        signature: studentUpdateForm_updateWaiverSignatureCheckbox.checked
+          ? image.src
+          : oldStudentInfo.signature,
         date: today,
       };
 
-      //push to _userdatamodal
-      this._userDataModal.push(newCustomer);
+      console.log('updated student: ', student);
 
-      console.log(this._userDataModal);
+      const savedStudent = await this.updateStudentApi(student, idModal.value);
 
-      //set local storage
-      localStorage.setItem('userData3', JSON.stringify(this._userDataModal));
-
-      //get local storage
-      const userData3 = JSON.parse(localStorage.getItem('userData3'));
-
-      //get the last item in the array
-      const lastStudent = userData3[userData3.length - 1];
+      this.refreshAppDataUsers();
 
       //display student name in congrats container
-      congratsStudentEnrollmentName.textContent = `${lastStudent.childName}`;
-      congratsStudentEnrollmentProgram.textContent = `${lastStudent.jiujitsuProgram}`;
+      congratsStudentEnrollmentName.textContent = `${savedStudent.childName}`;
+      congratsStudentEnrollmentProgram.textContent = `${savedStudent.jiujitsuProgram}`;
       ////////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////////
-
-      //get local storage user data2
-      const userData2 = JSON.parse(localStorage.getItem('userData2'));
-
-      //set userData2 to userData4
-      const userData4 = userData2;
-
-      console.log(userData4);
-
-      // find matching student credit card name in userData4 to lastStudent
-      const matchingStudent = userData4.find(
-        student =>
-          student.creditCardFullName === lastStudent.creditCardFullName &&
-          student.creditCardNumber === lastStudent.creditCardNumber
-      );
-
-      //get index of matching student
-      const index = userData4.indexOf(matchingStudent);
-
-      //remove matching student from userData4
-      userData4.splice(index, 1);
-      //push laststudent to userData4
-      userData4.push(lastStudent);
-      //set userData4 to local storage userData4
-      localStorage.setItem('userData4', JSON.stringify(userData4));
-
-      //set userData4 to local storage userData2
-      localStorage.setItem('userData2', JSON.stringify(userData4));
 
       ////////////////////////////////////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////////////////////////////////////
@@ -1675,13 +1590,14 @@ console.log(optionSaturdayLocalStorageCount)
       additionalInfoModal.value = '';
 
       // //remove canvas signature pad from DOM after submit
-      signaturePad.remove();
+      signaturePad2.remove();
     });
   }
+
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
   //19) Export User Data to CSV
-  exportUserData(userData) {
+  exportUserData() {
     exportButtonContainer.addEventListener('click', e => {
       const clicked = e.target.closest('.export__button');
 
@@ -1689,7 +1605,7 @@ console.log(optionSaturdayLocalStorageCount)
       if (!clicked) return;
 
       const csvString = [
-        userData.map(user => {
+        this._userData.map(user => {
           return Object.values(user).join(',');
         }),
       ].join('\n');
@@ -1820,7 +1736,6 @@ console.log(optionSaturdayLocalStorageCount)
       .catch(err => {
         console.log(err);
       });
-
   }
   ///////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1966,7 +1881,6 @@ console.log(optionSaturdayLocalStorageCount)
         location.reload();
       }
     });
-
   }
   ///////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////
@@ -2043,7 +1957,6 @@ console.log(optionSaturdayLocalStorageCount)
         /////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////
       }
-      
     });
 
     /////////////////////////////////////////////////////////////////////////////
@@ -2137,8 +2050,8 @@ console.log(optionSaturdayLocalStorageCount)
   /////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //32) Customer Form Submit **Form Submit**
-  customerFormSubmit() {
-    customerFormSubmit.addEventListener('click', e => {
+  async customerFormSubmit() {
+    customerFormSubmit.addEventListener('click', async e => {
       e.preventDefault();
 
       //remove hidden class from congrats container
@@ -2156,69 +2069,38 @@ console.log(optionSaturdayLocalStorageCount)
       image.style.display = 'block';
       form.appendChild(image);
 
-      //get values from form
-      const firstNameValue = firstNameCustomer.value;
-      const lastNameValue = lastNameCustomer.value;
-      const emailValue = emailCustomer.value;
-      const phoneValue = phoneCustomer.value;
-      const addressValue = addressCustomer.value;
-      const emergencyFullNameValue = emergencyFullNameCustomer.value;
-      const emergencyPhoneValue = emergencyPhoneCustomer.value;
-      const emergencyRelationshipValue = emergencyRelationshipCustomer.value;
-      const childNameValue = childNameCustomer.value;
-      const childBirthdayValue = childBirthdayCustomer.value;
-      const jiujitsuProgramValue = jiujitsuProgramCustomer.value;
-      const childPerferedScheduleValue = childPerferedScheduleCustomer.value;
-      const childStartDateValue = today;
-      const afterSchoolProgramValue = afterSchoolProgramCustomer.value;
-      const creditCardFullNameValue = creditCardFullNameCustomer.value;
-      const creditCardNumberValue = creditCardNumberCustomer.value;
-      const creditCardExpirationValue = creditCardExpirationCustomer.value;
-      const creditCardCVVValue = creditCardCVVCustomer.value;
-      const perferedPaymentDateValue = perferedPaymentDateCustomer.value;
-      const additionalInfoValue = additionalInfoCustomer.value;
-      const signatureValue = image.src;
-
       //create new student object
-      const newStudent = {
-        firstName: firstNameValue,
-        lastName: lastNameValue,
-        email: emailValue,
-        phone: phoneValue,
-        address: addressValue,
+      const student = {
+        firstName: firstNameCustomer.value,
+        lastName: lastNameCustomer.value,
+        email: emailCustomer.value,
+        phone: phoneCustomer.value,
+        address: addressCustomer.value,
         // waiver: waiverValue,
-        emergencyFullName: emergencyFullNameValue,
-        emergencyPhone: emergencyPhoneValue,
-        emergencyRelationship: emergencyRelationshipValue,
-        childName: childNameValue,
-        childBirthday: childBirthdayValue,
-        jiujitsuProgram: jiujitsuProgramValue,
-        childPerferedSchedule: childPerferedScheduleValue,
-        childStartDate: childStartDateValue,
-        afterSchoolProgram: afterSchoolProgramValue,
-        creditCardFullName: creditCardFullNameValue,
-        creditCardNumber: creditCardNumberValue,
-        creditCardExpiration: creditCardExpirationValue,
-        creditCardCVV: creditCardCVVValue,
-        perferedPaymentDate: perferedPaymentDateValue,
-        additionalInfo: additionalInfoValue,
-        signature: signatureValue,
+        emergencyFullName: emergencyFullNameCustomer.value,
+        emergencyPhone: emergencyPhoneCustomer.value,
+        emergencyRelationship: emergencyRelationshipCustomer.value,
+        childName: childNameCustomer.value,
+        childBirthday: childBirthdayCustomer.value,
+        jiujitsuProgram: jiujitsuProgramCustomer.value,
+        childPerferedSchedule: childPerferedScheduleCustomer.value,
+        childStartDate: today,
+        afterSchoolProgram: afterSchoolProgramCustomer.value,
+        creditCardFullName: creditCardFullNameCustomer.value,
+        creditCardNumber: creditCardNumberCustomer.value,
+        creditCardExpiration: creditCardExpirationCustomer.value,
+        creditCardCVV: creditCardCVVCustomer.value,
+        perferedPaymentDate: perferedPaymentDateCustomer.value,
+        additionalInfo: additionalInfoCustomer.value,
+        signature: image.src,
       };
 
-      console.log(newStudent);
+      const savedStudent = await this.addStudentApi(student);
 
-      //push new student to _userData array
-      this._userData.push(newStudent);
+      this.refreshAppDataUsers();
 
-      //set userData to local storage
-      localStorage.setItem('userData2', JSON.stringify(this._userData));
-
-      //get userData2 from local storage
-      const userData2 = JSON.parse(localStorage.getItem('userData2'));
-
-      const lastStudent = userData2[userData2.length - 1];
       //display student name in congrats container
-      studentEnrollmentName.textContent = `${lastStudent.childName}`;
+      studentEnrollmentName.textContent = `${savedStudent.childName}`;
       // studentEnrollmentProgram.textContent = `${lastStudent.jiujitsuProgram}`;
 
       //clear values from form
@@ -2248,6 +2130,86 @@ console.log(optionSaturdayLocalStorageCount)
       // signaturePad.clear();
     });
   }
+
+  async addStudentApi(student) {
+    try {
+      const apiUrl = 'http://localhost:3000/students';
+      const data = student;
+
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      };
+      const response = await fetch(apiUrl, requestOptions);
+      if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+      }
+
+      return await response.json();
+    } catch (err) {
+      console.error(
+        `An error has occured while fetching students from the server.`,
+        err
+      );
+    }
+  }
+
+  async updateStudentApi(student, id) {
+    try {
+      const apiUrl = `http://localhost:3000/students/${id}`;
+      const data = student;
+
+      const requestOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      };
+      const response = await fetch(apiUrl, requestOptions);
+      if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+      }
+
+      return await response.json();
+    } catch (err) {
+      console.error(
+        `An error has occured while fetching students from the server.`,
+        err
+      );
+    }
+  }
+
+  async deleteStudentApi(studentId) {
+    try {
+      const apiUrl = `http://localhost:3000/students/${studentId}`;
+
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await fetch(apiUrl, requestOptions);
+      if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+      }
+
+      return await response.json();
+    } catch (err) {
+      console.error(
+        `An error has occured while fetching students from the server.`,
+        err
+      );
+    }
+  }
+
   /////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   //33) Display Student Enrollment Info for monthly repots
@@ -2569,7 +2531,7 @@ console.log(optionSaturdayLocalStorageCount)
         const lastLetter = user.lastName.charAt(0);
 
         const saturdayChampHTML = `
-                      <div id="tiny${index}" class="card__container tiny_champion">
+                      <div id="tiny${index}" data-id="${user.id}" class="card__container tiny_champion">
                         <div class="student__card__header__tiny">
                         <p>${firstLetter} ${lastLetter}</p>
                         </div>
@@ -2620,16 +2582,12 @@ console.log(optionSaturdayLocalStorageCount)
       if (user.jiujitsuProgram === 'saturday_champion') {
         this._optionSaturdayCount.push(user);
 
-        
-
         //get length of array and display in DOM
         optionSaturday.innerHTML = `${this._optionSaturdayCount.length}`;
       }
     });
-      //save to local storage
-      localStorage.setItem('optionSaturday', optionSaturday.innerHTML);
-      
+    //save to local storage
+    localStorage.setItem('optionSaturday', optionSaturday.innerHTML);
   }
-
 }
 const app = new App();
